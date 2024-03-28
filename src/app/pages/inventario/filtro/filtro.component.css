@@ -1,0 +1,12 @@
+#container {
+    opacity: 0;
+    transition: opacity 0.3s ease; /* Transição de 0.3 segundos com a função de temporização 'ease' */
+  }
+  
+  #container.mostrar {
+    opacity: 1; /* Quando a classe 'mostrar' é aplicada, o container torna-se visível */
+  }
+
+.desativado {
+    pointer-events: none;
+}
