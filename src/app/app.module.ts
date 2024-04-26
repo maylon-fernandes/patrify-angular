@@ -18,6 +18,7 @@ import { ConfigComponent } from './pages/config/config.component';
 import { RouterModule } from '@angular/router';
 import { LandingpageComponent } from './pages/landingpage/landingpage.component';
 import { HeaderlandingComponent } from './pages/landingpage/headerlanding/headerlanding.component';
+import { DescarteComponent } from './pages/descarte/descarte.component';
 
 
 // import { AuthGuard } from './service/authguard.service';
@@ -37,6 +38,7 @@ import { HeaderlandingComponent } from './pages/landingpage/headerlanding/header
     ConfigComponent,
     LandingpageComponent,
     HeaderlandingComponent,
+    DescarteComponent,
   ],
   imports: [
     CommonModule,

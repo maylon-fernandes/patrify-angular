@@ -7,6 +7,7 @@ import { UserpageComponent } from './pages/userpage/userpage.component';
 import { HomeComponent } from './pages/home/home.component';
 import { ConfigComponent } from './pages/config/config.component';
 import { LandingpageComponent } from './pages/landingpage/landingpage.component';
+import { DescarteComponent } from './pages/descarte/descarte.component';
 // import { AuthGuard } from '../app/service/authguard.service';
 
 const routes: Routes = [
@@ -16,6 +17,7 @@ const routes: Routes = [
   {path: 'usuario', component: UserpageComponent,  }, // Rota para pagina do usuário
   {path: 'home', component: HomeComponent, }, // Rota para pagina de inicio
   {path: 'configs', component: ConfigComponent},
+  {path: 'descarte', component: DescarteComponent},
   {path: 'patrify', component: LandingpageComponent},
   { path: '', redirectTo: 'patrify', pathMatch: 'full' }
 ];
