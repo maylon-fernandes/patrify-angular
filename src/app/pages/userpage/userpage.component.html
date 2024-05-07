@@ -22,29 +22,27 @@
                                 </g>
                             </svg>
                         </div>
+                        <!-- Profile Body -->
                         <div class="text-white">
-                            <h1 class="text-2xl font-semibold">Nome:  {{ dadosCNPJ.nome_fantasia }}</h1>
-                            <p class="text-sm">CNPJ:  {{ dadosCNPJ.cnpj }}</p>
-                            <p class="text-sm">Telefone 1: {{ dadosCNPJ.ddd_telefone_1}}</p>
-                            <p class="text-sm">Telefone 2: {{ dadosCNPJ.ddd_telefone_2}}</p>
+                            <h1 class="text-2xl font-semibold">Nome:</h1>
+                            <p class="text-sm">CNPJ: </p>
+                            <p class="text-sm">Telefone 1:</p>
+                            <p class="text-sm">Telefone 2:</p>
                         </div>
                     </div>
                 </div>
-                <!-- Profile Body -->
-                
                 <!-- Profile Footer -->
                 <div class="px-6 py-4 bg-gray-200">
                     <h2 class="text-lg font-semibold text-gray-800">Sobre mim</h2>
-                    <div *ngIf="dadosCNPJ">
-                        <h2>Razão Social: {{ dadosCNPJ.razao_social }}</h2>
-                        <p>Atividade Econômica: {{dadosCNPJ.cnae_fiscal_descricao}}</p>
-                        
-                        <p>Situação Cadastral: {{ dadosCNPJ.descricao_situacao_cadastral }}</p>
-                        <p>ENDEREÇO: {{dadosCNPJ.descricao_tipo_de_logradouro}} {{ dadosCNPJ.logradouro }}, Nº {{ dadosCNPJ.numero}}, {{ dadosCNPJ.bairro }}, {{ dadosCNPJ.municipio }} - {{ dadosCNPJ.uf }}</p>
-                       <p>INICIO DAS ATIVIDADES: {{ formatarData(dadosCNPJ.data_inicio_atividade) }}</p>
+                    <div>
+                        <h2>Razão Social:</h2>
+                        <p>Atividade Econômica: </p>
+                        <p>Situação Cadastral: </p>
+                        <p>ENDEREÇO:</p>
+                        <p>INICIO DAS ATIVIDADES:</p>
                         <!-- Adicione os outros campos que deseja exibir aqui -->
-                      </div>
-                      
+                    </div>
+
                 </div>
                 <!-- <div class="px-6 py-4">
                     <h2 class="text-lg font-semibold text-gray-800">Quantidade de Patrimonios ativos por</h2>
@@ -52,7 +50,7 @@
                     <img src="../../../assets/imgs/grafico de teste.png" alt="" width="800px">
                 </div> -->
 
-                
+
             </div>
         </div>
     </div>

@@ -2,6 +2,8 @@ import { Component, ElementRef, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { BackendService } from 'src/app/service/backend.service';
 import { Router } from '@angular/router';
+import axios from 'axios';
+
 
 @Component({
   templateUrl: './login.component.html',
@@ -20,7 +22,7 @@ export class LoginComponent implements OnInit {
   fazerLogin() {
     window.open('/senha', '_blank');
   }
-  
+
   ngOnInit(): void {
     this.spanTexto = this.elementRef.nativeElement.querySelector('#organize')!;
     this.iniciarLoop();
@@ -62,12 +64,12 @@ export class LoginComponent implements OnInit {
 
     // Verificar se o usuário está autenticado usando o token
     if (this.token) {
-      
+
       this.backendService.SignedUser(this.token)
         .subscribe(
           response => {
             // Manipular a resposta bem-sucedida aqui (por exemplo, exibir mensagem de sucesso)
-            console.log( response);
+            console.log(response);
             this.router.navigate(['/inventario']);
           },
           error => {
@@ -78,7 +80,7 @@ export class LoginComponent implements OnInit {
     } else {
       console.error('Token não encontrado no localStorage.');
     }
-  
+
 
   }
 
@@ -147,34 +149,49 @@ export class LoginComponent implements OnInit {
 
   }
 
-
   registerUser() {
     const form = document.getElementById('formRegister') as HTMLFormElement;
     const cnpj = form.elements.namedItem('cnpj') as HTMLInputElement;
     const email = form.elements.namedItem('email') as HTMLInputElement;
     const password = form.elements.namedItem('password') as HTMLInputElement;
+    const reppassword = form.elements.namedItem('reppassword') as HTMLInputElement;
 
-    const userData = {
-      name: 'kevin',
-      telefone: '21639',
-      email: email.value,
-      cnpj: cnpj.value,
-      matriz_filial: 'matriz',
-      porte: 'pequeno',
-      password: password.value
-    };
-
-    this.backendService.registerUser(userData)
-      .subscribe(
-        response => {
-          console.log('Usuário registrado com sucesso:', response);
-        },
-        error => {
-          // Manipular erros de registro aqui (por exemplo, exibir mensagem de erro)
-          console.error('Erro ao registrar usuário:', error);
-        }
-      );
+    // Fazendo requisição à API do BrasilAPI para obter informações da empresa pelo CNPJ
+    axios.get(`https://brasilapi.com.br/api/cnpj/v1/${cnpj.value}`)
+      .then(response => {
+        const dadosCNPJ = response.data;
+  
+        // Construindo os dados do usuário com base nos dados da empresa retornados pela API
+        const userData = {
+          name: dadosCNPJ.nome_fantasia,
+          cnpj: cnpj.value,
+          telefone1: dadosCNPJ.ddd_telefone_1,
+          telefone2: dadosCNPJ.ddd_telefone_2,
+          email: email.value,
+          razaoSocial: dadosCNPJ.razao_social,
+          atividadeEconomica: dadosCNPJ.cnae_fiscal_descricao,
+          endereco: `${dadosCNPJ.descricao_tipo_de_logradouro} ${dadosCNPJ.logradouro} Nº ${dadosCNPJ.numero}, ${dadosCNPJ.bairro}, ${dadosCNPJ.municipio} - ${dadosCNPJ.uf}`,
+          password: password.value
+        };
+  
+        // Chamando o serviço de backend para registrar o usuário
+        this.backendService.registerUser(userData)
+          .subscribe(
+            response => {
+              console.log('Usuário registrado com sucesso:', response);
+            },
+            error => {
+              // Manipular erros de registro aqui (por exemplo, exibir mensagem de erro)
+              console.error('Erro ao registrar usuário:', error);
+            }
+          );
+      })
+      .catch(error => {
+        // Trate os erros de requisição à API aqui (por exemplo, exibir mensagem de erro)
+        console.error('Erro ao obter dados do CNPJ:', error);
+      });
   }
+  
 
   LoginUser() {
     const form = document.getElementById('formLogin') as HTMLFormElement;

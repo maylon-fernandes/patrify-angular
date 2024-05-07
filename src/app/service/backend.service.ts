@@ -84,10 +84,4 @@ export class BackendService {
       );
   }
 
-  buscarCNPJ(cnpj: string): Observable<any> {
-    const url = `${this.url}/buscar-cnpj/${cnpj}`;
-    return this.http.get(url);
-  }
-    
-
 }
