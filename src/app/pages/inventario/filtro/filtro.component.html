@@ -158,7 +158,7 @@
             <!-- Imagem como elemento de input -->
             <label for="uploadInput" class="cursor-pointer flex flex-col justify-center items-center">
                 <img src="../../../../assets/imgs/upload-img.png" width="100px">
-                <input  [(ngModel)]="file" [ngModelOptions]="{standalone: true}" type="file" id="uploadInput"   class="hidden">
+                <input  [(ngModel)]="file" [ngModelOptions]="{standalone: true}" type="file" id="uploadInput"   (change)="onFileSelected($event)" class="hidden">
                 <span class="text-center mt-4 font-bold">Clique na área para fazer upload da imagem <br>(JPEG ou PNG)</span>
             </label>
         </div>

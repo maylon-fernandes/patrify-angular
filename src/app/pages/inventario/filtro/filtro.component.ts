@@ -44,9 +44,13 @@ export class FiltroComponent {
     this.mostrarAddPatrimonio = !this.mostrarAddPatrimonio;
   }
 
-  onFileSelected(event: { target: { files: File[]; }; }) {
-    this.file = event.target.files[0];
-  }
+  onFileSelected(event: Event) {
+    const inputElement = event.target as HTMLInputElement;
+    if (inputElement.files && inputElement.files.length > 0) {
+        this.file = inputElement.files[0];
+    }
+}
+
 
 
   registerPatr() {
