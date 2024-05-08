@@ -1,0 +1,45 @@
+@keyframes textUp {
+    to {
+        transform: scale(1.5);
+        opacity: 0;
+    }
+}
+
+@keyframes fadeRight {
+    from {
+        transform: translateX(-50%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0%);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeLeft {
+    from {
+        transform: translateX(50%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0%);
+        opacity: 1;
+    }
+}
+
+#txt {
+    animation: textUp 1s ease;
+    animation-timeline: scroll();
+}
+
+#logo {
+    animation: fadeLeft 10s ease;
+    animation-timeline: scroll();
+    animation-range: cover 0% cover 50%;
+}
+
+#desc {
+    animation: fadeRight 10s ease;
+    animation-timeline: scroll();
+    animation-range: cover 0% cover 50%;
+}

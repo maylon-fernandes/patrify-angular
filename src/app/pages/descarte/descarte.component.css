@@ -1,0 +1,22 @@
+@media screen and (max-width: 875px) {
+    #url {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 700px) {
+    #site {
+        display: none;
+    }
+}
+
+
+@media screen and (max-width: 487px) {
+    #botao-add {
+        width: 90px;
+    }
+
+    #contato {
+        display: none;
+    }
+}

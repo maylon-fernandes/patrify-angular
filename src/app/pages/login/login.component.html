@@ -1,0 +1,98 @@
+<body>
+    <section class="container-left">
+        <img src="../../../assets/imgs/patrify logo.png" id="patrify-logo">
+        <div class="login" id="login">
+            <h2 class="font-semibold">Login</h2>
+            <form action="" id="formLogin" (submit)="LoginUser()">
+                <div class="form-group">
+                    <label for="email">CNPJ:</label>
+                    <input type="text" name="cnpj" id="cnpj" class="input-login" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Senha:</label>
+                    <input type="text" name="password" id="password" class="input-login" required>
+                </div>
+                <p id="forgotPassword" (click)="fazerLogin()">Esqueci a Senha</p>
+                <button type="submit">Entrar</button>
+                <div class="other">
+                    <p>Não tem uma conta?</p>
+                    <p id="linkRegister">Registre-se aqui.</p>
+                </div>
+            </form>
+        </div>
+        <div class="register" id="register">
+            <h2 class="font-semibold">Registro</h2>
+            <form action="" id="formRegister" (submit)="registerUser()">
+                <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+                    <div class="form-group" id="cnpjBox">
+                        <label for="cnpj">CNPJ:</label>
+                        <input type="text" name="cnpj" id="cnpjreg" class="input-login" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Empresarial:</label>
+                        <input type="text" name="email" id="email" class="input-login" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Senha:</label>
+                        <input type="password" name="password" id="passwordreg" class="input-login" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="reppassword">Repita a senha:</label>
+                        <input type="password" name="reppassword" id="reppassword" class="input-login" required>
+                    </div>
+                    <button type="submit">Registrar</button>
+                    <div class="other">
+                        <p>Já tem uma conta?</p>
+                        <p id="linkLogin">Faça o login aqui.</p>
+                    </div>
+            </form>
+       </div>
+       
+
+    </section>
+    <section class="container-right">
+        <h1 id="akievo" class="font-bold">PATRIFY</h1>
+        <div class="text">
+            <p><span id="organize"></span> seu patrimônio</p>
+        </div>
+    </section>
+    <div class="popup" id="popup">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+            class="w-6 h-6" id="popup-x">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+
+        <div class="popup-content">
+            <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                stroke-width="1.5" width="24" height="24" color="#000000">
+                <defs>
+                    <style>
+                        .cls-637b74f4f95e86b59c579ef3-1 {
+                            fill: none;
+                            stroke: currentColor;
+                            stroke-miterlimit: 10;
+                        }
+                    </style>
+                </defs>
+                <rect class="cls-637b74f4f95e86b59c579ef3-1" x="1.5" y="13.91" width="21" height="8.59"></rect>
+                <circle class="cls-637b74f4f95e86b59c579ef3-1" cx="4.84" cy="18.2" r="0.48"></circle>
+                <circle class="cls-637b74f4f95e86b59c579ef3-1" cx="9.61" cy="18.2" r="0.48"></circle>
+                <circle class="cls-637b74f4f95e86b59c579ef3-1" cx="14.39" cy="18.2" r="0.48"></circle>
+                <circle class="cls-637b74f4f95e86b59c579ef3-1" cx="19.16" cy="18.2" r="0.48"></circle>
+                <rect class="cls-637b74f4f95e86b59c579ef3-1" x="9.14" y="5.32" width="5.73" height="4.77"></rect>
+                <path class="cls-637b74f4f95e86b59c579ef3-1"
+                    d="M12,1.5h0a1.91,1.91,0,0,1,1.91,1.91V5.32a0,0,0,0,1,0,0H10.09a0,0,0,0,1,0,0V3.41A1.91,1.91,0,0,1,12,1.5Z"
+                    id="alert"></path>
+            </svg>
+            <p>Esqueceu a senha?</p>
+            <p>Digite as informações exigidas e nós enviaremos um link em seu email para redefinir sua senha.</p>
+            <form action="">
+                <label for="email">CNPJ:</label>
+                <input type="text" name="cnpj-fp" id="cnpj-fp" required>
+                <label for="email">Email:</label>
+                <input type="text" name="email-fp" id="email-fp" required>
+                <button type="submit" id="popup-exit">Enviar</button>
+            </form>
+        </div>
+    </div>
+</body>
