@@ -201,7 +201,7 @@ export class LoginComponent implements OnInit {
               endereco: `${dadosCNPJ.descricao_tipo_de_logradouro} ${dadosCNPJ.logradouro} Nº ${dadosCNPJ.numero}, ${dadosCNPJ.bairro}, ${dadosCNPJ.municipio} - ${dadosCNPJ.uf}`,
               password: password.value
             };
-  
+            console.log(userData)
             // Chamando o serviço de backend para registrar o usuário
             this.backendService.registerUser(userData)
               .subscribe(

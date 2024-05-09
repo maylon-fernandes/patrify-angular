@@ -385,6 +385,13 @@ input[type=radio] {
 	opacity: 0.2;
 }
 
+
+.error-message{
+	color: rgb(77, 50, 1);
+	font-weight: bolder;
+}
+
+
 @media print {
 	input[type=radio] {
 		-webkit-appearance: auto;

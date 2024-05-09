@@ -91,8 +91,9 @@ export class BackendService {
     formData.append('image', image);
     console.log(formData);
     
+    
 
-    return this.http.post(urlRegister, image)
+    return this.http.post(urlRegister, formData)
       .pipe(
         map(response => {
           // Handle successful registration (e.g., return success message or user data)

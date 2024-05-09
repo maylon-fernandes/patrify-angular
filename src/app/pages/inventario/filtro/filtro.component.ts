@@ -70,10 +70,10 @@ export class FiltroComponent {
       const formData = new FormData();
   
       // Append the file to FormData (replace 'file' with actual backend key)
-      // if (this.file && requiresFile) {
-      //   formData.append('file', this.file);
-      //   console.log('Image appended to FormData:', this.file.name);
-      // }
+      if (this.file && requiresFile) {
+        formData.append('file', this.file);
+        console.log('Image appended to FormData:', this.file);
+      }
   
       // Send POST request using HttpClient with FormData
       this.backendService.cadastrarPatrimonio(patrimonioData, this.token)
@@ -85,7 +85,7 @@ export class FiltroComponent {
             // Send image upload request only if successful
             if (response && response.newPatrimonyId) {
               console.log('oi')
-              this.backendService.patrimage(this.file, response.newPatrimonyId).pipe(
+              this.backendService.patrimage(this.file , response.newPatrimonyId).pipe(
                 tap((response) => {
                   console.log('Imagem enviada com sucesso:', response);
                 }),
