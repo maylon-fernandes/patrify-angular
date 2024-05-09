@@ -18,32 +18,31 @@
         </thead>
         <tbody class="bg-white divide-y divide-gray-200 transition-colors hover:bg-gray-300">
           <!-- Row 1 -->
-          <tr>
+          <tr *ngFor="let patrimonio of patrimonios">
             <td class="px-6 py-4 whitespace-nowrap">
               <div class="flex items-center">
-                <div class="flex-shrink-0 h-10 w-10">
-                  <!-- Aqui você pode adicionar uma tag img com a imagem -->
-                  <div class="h-10 w-10 bg-gray-200 rounded-full"></div>
+                <div class="flex-shrink-0 h-10 w-20">
+                  <img [src]="patrimonio.imageSrc" alt="">
                 </div>
               </div>
             </td>
             <td class="px-6 py-4 whitespace-nowrap">
-              <div class="text-sm text-gray-900">Nome do item</div>
+              <div class="text-sm text-gray-900">{{ patrimonio.patr_name }}</div>
             </td>
             <td class="px-6 py-4 whitespace-nowrap">
-              <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Ativo</span>
+              <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">{{patrimonio.patr_ativoinativo}}</span>
             </td>
             <td class="px-6 py-4 whitespace-nowrap" id="local">
-              <div class="text-sm text-gray-900">Localização do item</div>
+              <div class="text-sm text-gray-900">{{patrimonio.patr_local}}</div>
             </td>
             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500" id="valor">
-              $100,00
+              ${{patrimonio.patr_valor}}
             </td>
             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500" id="data">
-              01/01/2024
+              {{patrimonio.patr_dt_compra}}
             </td>
             <td class="px-6 py-4 whitespace-nowrap" id="conservacao">
-              <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Novo</span>
+              <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">{{patrimonio.patr_depreciacao}}</span>
             </td>
           </tr>
           <!-- Row 2, 3, ... -->

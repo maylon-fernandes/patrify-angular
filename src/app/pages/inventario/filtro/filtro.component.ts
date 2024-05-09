@@ -88,6 +88,7 @@ export class FiltroComponent {
               this.backendService.patrimage(this.file , response.newPatrimonyId).pipe(
                 tap((response) => {
                   console.log('Imagem enviada com sucesso:', response);
+                  window.location.reload();
                 }),
                 catchError(error => {
                   console.error('Erro ao enviar imagem:', error);
