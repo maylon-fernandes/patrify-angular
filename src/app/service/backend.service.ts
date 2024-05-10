@@ -40,6 +40,15 @@ export class BackendService {
         })
       );
   }
+
+  getUserInfo(token: string) {
+    const headers = new HttpHeaders({
+      'Authorization': `${token}`
+    });
+    
+    const url = `${this.url}/user/profile`; 
+    return this.http.get<any>(url, { headers });
+  }
  
   SignedUser(token: string): Observable<any> {
     const headers = new HttpHeaders({

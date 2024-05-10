@@ -23,26 +23,29 @@
                             </svg>
                         </div>
                         <!-- Profile Body -->
-                        <div class="text-white">
-                            <h1 class="text-2xl font-semibold">Nome:</h1>
-                            <p class="text-sm">CNPJ: </p>
-                            <p class="text-sm">Telefone 1:</p>
-                            <p class="text-sm">Telefone 2:</p>
+                        <div *ngFor="let user of userInfo">
+                            <div class="text-white">
+                                
+                                <h2 class="text-2xl font-semibold">Nome: {{user.user_name}}</h2>
+                                <p class="text-sm">Razão Social: {{user.user_razaoSocial}}</p>
+                                <p class="text-sm">CNPJ: {{user.user_cnpj}}</p>
+                                <p class="text-sm">Telefone 1: {{user.user_telefone1}}</p>
+                                <p class="text-sm">Telefone 2: {{user.user_telefone2}}</p>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <!-- Profile Footer -->
-                <div class="px-6 py-4 bg-gray-200">
-                    <h2 class="text-lg font-semibold text-gray-800">Sobre mim</h2>
-                    <div>
-                        <h2>Razão Social:</h2>
-                        <p>Atividade Econômica: </p>
-                        <p>Situação Cadastral: </p>
-                        <p>ENDEREÇO:</p>
-                        <p>INICIO DAS ATIVIDADES:</p>
-                        <!-- Adicione os outros campos que deseja exibir aqui -->
+                <div *ngFor="let user of userInfo">
+                    <div class="px-6 py-4 bg-gray-200">
+                        <h2 class="text-lg font-semibold text-gray-800">Sobre mim</h2>
+                        <div>
+                            
+                            <p>Atividade Econômica: {{user.atividadeEconomica}} </p>
+                            <p>ENDEREÇO: {{user.user_endereco}}</p>
+                            <!-- Adicione os outros campos que deseja exibir aqui -->
+                        </div>
                     </div>
-
                 </div>
                 <!-- <div class="px-6 py-4">
                     <h2 class="text-lg font-semibold text-gray-800">Quantidade de Patrimonios ativos por</h2>
