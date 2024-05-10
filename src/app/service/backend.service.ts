@@ -115,6 +115,18 @@ export class BackendService {
       );
   }
   
+  Filter(FilterData: any, token: string): Observable<any> {
+    const headers = new HttpHeaders({
+      'Authorization': `${token}`
+    });
+    const url = `${this.url}/patrimony/filter`;
+    return this.http.post(url, FilterData, { headers })
+      .pipe(
+        catchError(error => {
+          return throwError(error);
+        })
+      );
+  }
   
 
 }

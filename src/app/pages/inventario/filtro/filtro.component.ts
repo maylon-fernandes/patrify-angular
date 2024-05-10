@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { BackendService } from 'src/app/service/backend.service';
 import { catchError, tap, throwError } from 'rxjs';
+import { b64toBlob } from 'src/app/utils/utils';
 
 @Component({
   selector: 'filtro',
@@ -19,7 +20,7 @@ import { catchError, tap, throwError } from 'rxjs';
     ])
   ]
 })
-export class FiltroComponent {
+export class FiltroComponent implements OnInit{
   mostrarAddPatrimonio: boolean = false;
   token: string | null = null;
 
@@ -35,9 +36,68 @@ export class FiltroComponent {
   tipo: string = '';
   file!: File;
   id: number = 0;
+  patrimonios: any[] = []; // Array to store all patrimonios
   
-
   constructor(private backendService: BackendService) {}
+  
+  selectedFilters: any = {};
+  nameFilter: string = '';
+  statusFilter: string = '';
+  precoFilter: string = '';
+  dataFilter: string = '';
+  conservacaoFilter: string = '';
+  
+  @Output() dataReady = new EventEmitter<any>();
+
+  onFilterChange() {
+    // Update selectedFilters based on UI selections
+    this.selectedFilters = {
+      name: this.nameFilter,
+      status: this.statusFilter,
+      preco: this.precoFilter,
+      data: this.dataFilter,
+      conservacao: this.conservacaoFilter
+      // ... other filters
+    };
+
+    // Emit the event with filter data
+    this.dataReady.emit(this.selectedFilters);
+  }
+  ngOnInit(): void {
+    this.onFilterChange()
+    this.token = localStorage.getItem('token');
+    console.log('Token recuperado do localStorage:', this.token);
+    
+    if (this.token) {
+      this.backendService.listPatry(this.token)
+        .subscribe(
+          response => {
+            console.log(response.patrimonios);
+
+            this.patrimonios = response.patrimonios.map((patrimonio: any) => {
+              const dateString = patrimonio.patr_dt_compra
+              const date = new Date(dateString);
+              const formattedDate = date.toLocaleDateString('pt-BR'); 
+
+              const imagem = patrimonio.imagem;
+              const blob = b64toBlob(imagem, 'image/jpeg');
+              const objectURL = URL.createObjectURL(blob);
+              console.log(objectURL);
+
+
+              return {
+                ...patrimonio,
+                date: formattedDate,
+                imageSrc: objectURL
+              };
+            });
+          },
+          error => {
+            console.error('Erro ao verificar autenticação do usuário:', error);
+          }
+        );
+        }
+      }
 
 
   alternarAddPatrimonio() {
@@ -50,6 +110,7 @@ export class FiltroComponent {
         this.file = inputElement.files[0];
     }
 }
+
 
 
 
