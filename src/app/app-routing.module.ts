@@ -8,16 +8,16 @@ import { HomeComponent } from './pages/home/home.component';
 import { ConfigComponent } from './pages/config/config.component';
 import { LandingpageComponent } from './pages/landingpage/landingpage.component';
 import { DescarteComponent } from './pages/descarte/descarte.component';
-// import { AuthGuard } from '../app/service/authguard.service';
+import { AuthguardService } from '../app/service/authguard.service';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent,  }, // Rota para login page
-  { path: 'inventario', component: InventarioComponent, }, // Rota para inventory page
+  { path: 'inventario', component: InventarioComponent, canActivate: [AuthguardService] }, // Rota para inventory page
   {path: 'senha', component: SenhaComponent,  }, // Rota para esqueci a senha page
-  {path: 'usuario', component: UserpageComponent,  }, // Rota para pagina do usuário
+  {path: 'usuario', component: UserpageComponent, canActivate: [AuthguardService] }, // Rota para pagina do usuário
   {path: 'home', component: HomeComponent, }, // Rota para pagina de inicio
-  {path: 'configs', component: ConfigComponent},
-  {path: 'descarte', component: DescarteComponent},
+  {path: 'configs', component: ConfigComponent, canActivate: [AuthguardService] },
+  {path: 'descarte', component: DescarteComponent, canActivate: [AuthguardService] },
   {path: 'patrify', component: LandingpageComponent},
   { path: '', redirectTo: 'patrify', pathMatch: 'full' }
 ];
