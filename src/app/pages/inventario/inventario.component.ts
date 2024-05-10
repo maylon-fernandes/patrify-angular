@@ -84,6 +84,10 @@ export class InventarioComponent implements OnInit {
             console.log(response.patrimonios);
 
             this.patrimonios = response.patrimonios.map((patrimonio: any) => {
+              const dateString = patrimonio.patr_dt_compra
+              const date = new Date(dateString);
+              const formattedDate = date.toLocaleDateString('pt-BR'); 
+
               const imagem = patrimonio.imagem;
               const blob = b64toBlob(imagem, 'image/jpeg');
               const objectURL = URL.createObjectURL(blob);
@@ -92,6 +96,7 @@ export class InventarioComponent implements OnInit {
 
               return {
                 ...patrimonio,
+                date: formattedDate,
                 imageSrc: objectURL
               };
             });

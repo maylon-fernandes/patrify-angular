@@ -16,13 +16,13 @@
             <th scope="col" class="px-6 py-3 text-left font-bold text-gray-500 uppercase tracking-wider" id="conservacao">Conservação</th>
           </tr>
         </thead>
-        <tbody class="bg-white divide-y divide-gray-200 transition-colors hover:bg-gray-300">
+        <tbody class="bg-white divide-y divide-gray-200 transition-colors ">
           <!-- Row 1 -->
-          <tr *ngFor="let patrimonio of patrimonios">
+          <tr *ngFor="let patrimonio of patrimonios" class="hover:bg-gray-300">
             <td class="px-6 py-4 whitespace-nowrap">
               <div class="flex items-center">
                 <div class="flex-shrink-0 h-10 w-20">
-                  <img [src]="patrimonio.imageSrc" alt="">
+                  <img [src]="patrimonio.imageSrc" alt="" >
                 </div>
               </div>
             </td>
@@ -30,7 +30,11 @@
               <div class="text-sm text-gray-900">{{ patrimonio.patr_name }}</div>
             </td>
             <td class="px-6 py-4 whitespace-nowrap">
-              <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">{{patrimonio.patr_ativoinativo}}</span>
+              <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full "
+              [ngClass]="{
+                'bg-green-100 text-green-800': patrimonio.patr_ativoinativo === 'Ativo',
+                'bg-red-100 text-red-800': patrimonio.patr_ativoinativo === 'Não ativo'
+              }">{{patrimonio.patr_ativoinativo}}</span>
             </td>
             <td class="px-6 py-4 whitespace-nowrap" id="local">
               <div class="text-sm text-gray-900">{{patrimonio.patr_local}}</div>
@@ -39,7 +43,7 @@
               ${{patrimonio.patr_valor}}
             </td>
             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500" id="data">
-              {{patrimonio.patr_dt_compra}}
+              {{patrimonio.date}}
             </td>
             <td class="px-6 py-4 whitespace-nowrap" id="conservacao">
               <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">{{patrimonio.patr_depreciacao}}</span>
