@@ -120,7 +120,7 @@ export class BackendService {
       'Authorization': `${token}`
     });
     const url = `${this.url}/patrimony/filter`;
-    return this.http.post(url, FilterData, { headers })
+    return this.http.put(url, FilterData, { headers })
       .pipe(
         catchError(error => {
           return throwError(error);

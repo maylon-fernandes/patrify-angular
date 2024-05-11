@@ -42,11 +42,13 @@ export class FiltroComponent implements OnInit{
   
   selectedFilters: any = {};
   nameFilter: string = '';
-  statusFilter: string = '';
-  precoFilter: string = '';
+  statusFilter: string = '' ;
+  precoFilter: string ='' ;
   dataFilter: string = '';
   conservacaoFilter: string = '';
   
+  nameFilterOptions: string[] = ['Recente', 'A-Z', 'Mais antigo'];
+
   @Output() dataReady = new EventEmitter<any>();
 
   onFilterChange() {
@@ -56,8 +58,7 @@ export class FiltroComponent implements OnInit{
       status: this.statusFilter,
       preco: this.precoFilter,
       data: this.dataFilter,
-      conservacao: this.conservacaoFilter
-      // ... other filters
+     deprecicao: this.conservacaoFilter
     };
 
     // Emit the event with filter data
@@ -65,38 +66,6 @@ export class FiltroComponent implements OnInit{
   }
   ngOnInit(): void {
     this.onFilterChange()
-    this.token = localStorage.getItem('token');
-    console.log('Token recuperado do localStorage:', this.token);
-    
-    if (this.token) {
-      this.backendService.listPatry(this.token)
-        .subscribe(
-          response => {
-            console.log(response.patrimonios);
-
-            this.patrimonios = response.patrimonios.map((patrimonio: any) => {
-              const dateString = patrimonio.patr_dt_compra
-              const date = new Date(dateString);
-              const formattedDate = date.toLocaleDateString('pt-BR'); 
-
-              const imagem = patrimonio.imagem;
-              const blob = b64toBlob(imagem, 'image/jpeg');
-              const objectURL = URL.createObjectURL(blob);
-              console.log(objectURL);
-
-
-              return {
-                ...patrimonio,
-                date: formattedDate,
-                imageSrc: objectURL
-              };
-            });
-          },
-          error => {
-            console.error('Erro ao verificar autenticação do usuário:', error);
-          }
-        );
-        }
       }
 
 

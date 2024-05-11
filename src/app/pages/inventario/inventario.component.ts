@@ -10,53 +10,85 @@ import { b64toBlob } from 'src/app/utils/utils';
   styleUrls: ['./inventario.component.scss']
 })
 export class InventarioComponent implements OnInit {
-  patrimonios: any[] = []; // Array to store all patrimonios
+  filtros: any = [];
+  patrimonios: any = []; // Array to store all patrimonios
   token: string | null = null;
   @Input() data: any;
 
   constructor(private http: HttpClient, private backendService: BackendService) {}
   
   onDataReady(filteredData: any) {
-    this.patrimonios = filteredData; // Update the inventory list with filtered data
-    console.log(filteredData);
-    
-    
-  }
-  
-  ngOnInit(): void {
+    this.filtros = filteredData; // Update the inventory list with filtered data
+    console.log(this.filtros);
+
     this.token = localStorage.getItem('token');
     console.log('Token recuperado do localStorage:', this.token);
     
     if (this.token) {
-      this.backendService.listPatry(this.token)
-        .subscribe(
-          response => {
-            console.log(response.patrimonios);
+      this.backendService.Filter(this.filtros, this.token).subscribe(
+        response => {
+          console.log(response.patrimonios);
 
-            this.patrimonios = response.patrimonios.map((patrimonio: any) => {
-              const dateString = patrimonio.patr_dt_compra
-              const date = new Date(dateString);
-              const formattedDate = date.toLocaleDateString('pt-BR'); 
+          this.patrimonios = response.patrimonios.map((patrimonio: any) => {
+            const dateString = patrimonio.patr_dt_compra
+            const date = new Date(dateString);
+            const formattedDate = date.toLocaleDateString('pt-BR'); 
 
-              const imagem = patrimonio.imagem;
-              const blob = b64toBlob(imagem, 'image/jpeg');
-              const objectURL = URL.createObjectURL(blob);
-              console.log(objectURL);
+            const imagem = patrimonio.imagem;
+            const blob = b64toBlob(imagem, 'image/jpeg');
+            const objectURL = URL.createObjectURL(blob);
+            console.log(objectURL);
 
 
-              return {
-                ...patrimonio,
-                date: formattedDate,
-                imageSrc: objectURL
-              };
-            });
-          },
-          error => {
-            console.error('Erro ao verificar autenticação do usuário:', error);
-          }
-        );
-    } else {
-      console.error('Token não encontrado no localStorage.');
+            return {
+              ...patrimonio,
+              date: formattedDate,
+              imageSrc: objectURL
+            };
+          });
+        },
+        error => {
+          console.error('Erro ao verificar autenticação do usuário:', error);
+        }
+      );
     }
+    
+  }
+  
+  ngOnInit(): void {
+    // this.token = localStorage.getItem('token');
+    // console.log('Token recuperado do localStorage:', this.token);
+    
+    // if (this.token) {
+    //   this.backendService.listPatry(this.token)
+    //     .subscribe(
+    //       response => {
+    //         console.log(response.patrimonios);
+
+    //         this.patrimonios = response.patrimonios.map((patrimonio: any) => {
+    //           const dateString = patrimonio.patr_dt_compra
+    //           const date = new Date(dateString);
+    //           const formattedDate = date.toLocaleDateString('pt-BR'); 
+
+    //           const imagem = patrimonio.imagem;
+    //           const blob = b64toBlob(imagem, 'image/jpeg');
+    //           const objectURL = URL.createObjectURL(blob);
+    //           console.log(objectURL);
+
+
+    //           return {
+    //             ...patrimonio,
+    //             date: formattedDate,
+    //             imageSrc: objectURL
+    //           };
+    //         });
+    //       },
+    //       error => {
+    //         console.error('Erro ao verificar autenticação do usuário:', error);
+    //       }
+    //     );
+    // } else {
+    //   console.error('Token não encontrado no localStorage.');
+    // }
   }
 }
