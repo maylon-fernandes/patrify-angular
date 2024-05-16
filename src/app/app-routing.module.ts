@@ -15,7 +15,7 @@ const routes: Routes = [
   { path: 'inventario', component: InventarioComponent, canActivate: [AuthguardService] }, // Rota para inventory page
   {path: 'senha', component: SenhaComponent,  }, // Rota para esqueci a senha page
   {path: 'usuario', component: UserpageComponent, canActivate: [AuthguardService] }, // Rota para pagina do usuário
-  {path: 'home', component: HomeComponent, }, // Rota para pagina de inicio
+  {path: 'home', component: HomeComponent, canActivate: [AuthguardService] }, // Rota para pagina de inicio
   {path: 'configs', component: ConfigComponent, canActivate: [AuthguardService] },
   {path: 'descarte', component: DescarteComponent, canActivate: [AuthguardService] },
   {path: 'patrify', component: LandingpageComponent},
