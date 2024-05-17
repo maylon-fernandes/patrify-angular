@@ -41,13 +41,14 @@ export class FiltroComponent implements OnInit{
   constructor(private backendService: BackendService) {}
   
   selectedFilters: any = {};
+  tipofilter: string = 'Todos'
   nameFilter: string = 'Recente';
   statusFilter: string = 'Todos' ;
   precoFilter: string = 'todos' ;
   dataFilter: string = 'qualquer data';
   conservacaoFilter: string = 'qualquer';
   
-  nameFilterOptions: string[] = ['Recente', 'A-Z', 'Mais antigo'];
+  nameFilterOptions: string[] = ['Recente', 'A-Z', 'Z-A','Mais antigo'];
 
   @Output() dataReady = new EventEmitter<any>();
 
@@ -67,11 +68,12 @@ export class FiltroComponent implements OnInit{
   
     // Atualiza os filtros selecionados com os valores adequados
     this.selectedFilters = {
+      tipo: this.tipofilter,
       name: name,
       status: status,
       preco: preco,
-      data: data,
-      conservacao: conservacao
+      data_aquisicao: data,
+      condicao: conservacao
     };
   
     // Emite o evento com os dados do filtro

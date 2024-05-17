@@ -35,7 +35,7 @@ export class InventarioComponent implements OnInit {
             const formattedDate = date.toLocaleDateString('pt-BR'); 
 
             const imagem = patrimonio.imagem;
-            console.log(imagem)
+            // Sconsole.log(imagem)
             const blob = b64toBlob(imagem, 'image/jpeg');
             const objectURL = URL.createObjectURL(blob);
             console.log(objectURL);
