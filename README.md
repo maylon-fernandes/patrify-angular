@@ -7,7 +7,7 @@
 ## Colaboradoes
 
 - [maylon-fernandes](https://github.com/maylon-fernandes) - Designer de interface e funcionalidades do projeto / Dev Frontend.
--[keviwsilva](https://github.com/keviwsilva) - Integração de API, conexão entre Backend e Frontend / Dev FullStack.
+- [keviwsilva](https://github.com/keviwsilva) - Integração de API, conexão entre Backend e Frontend / Dev FullStack.
 - [Jm619353](https://github.com/Jm619353) - Desenvolvedor de Banco de Dados do projeto / Dev Backend.
 
 ## Funcionalidades
