@@ -22,5 +22,6 @@
 - **Angular 16:** Framework principal para desenvolvimento da aplicação.
 - **TypeScript:** Linguagem de programação utilizada.
 - **HTML5 &amp; CSS3:** Tecnologias para construção da interface do usuário.
-- **Node.js &amp; Express:** Servidor backend para API RESTful.
+- Tailwind CSS: Framework CSS para estilização da aplicação**
+- **Node.js:** Servidor backend para API RESTful.
 - **MySQL:** Banco de dados SQL utilizado para armazenamento de dados.
