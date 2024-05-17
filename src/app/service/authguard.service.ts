@@ -22,8 +22,7 @@ export class AuthguardService implements CanActivate {
         .subscribe(
           response => {
             // Manipular a resposta bem-sucedida aqui (por exemplo, exibir mensagem de sucesso)
-            // console.log(response);
-            this.router.navigate(['/inventario']);
+            
           },
           error => {
             this.router.navigate(['/login']);

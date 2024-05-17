@@ -44,6 +44,7 @@
             <span class="font-bold">Preço</span>
             <select [(ngModel)]="precoFilter" (change)="onFilterChange()"
                 class="bg-transparente text-gray-700 border-2 border-gray-700 font-medium w-44 h-10 rounded-full p-2 focus:outline-none">
+                <option value="todos">Todos</option>
                 <option value="menor que cinquenta"><$50</option>
                 <option value="51 a 100">$51-$100</option>
                 <option value="101 a 200">$101-$200</option>
@@ -55,23 +56,25 @@
         <span class="flex flex-col">
             <span class="font-bold">Data de aquisição</span> 
             <select [(ngModel)]="dataFilter" (change)="onFilterChange()" class="bg-transparente text-gray-700 font-medium border-2 border-gray-700 w-44 h-10 rounded-full p-2 focus:outline-none">
-                <option>Últimos 7 dias</option>
-                <option>Últimos 30 dias</option>
-                <option>Últimos 3 meses</option>
-                <option>Últimos 6 meses</option>
-                <option>Último 1 ano</option>
-                <option>Mais de 1 ano</option>
+                <option value="qualquer data">Qualquer Data</option>
+                <option value="ultimos 7 dias">Últimos 7 dias</option>
+                <option value="ultimos 30 dias">Últimos 30 dias</option>
+                <option value="ultimos 3 meses">Últimos 3 meses</option>
+                <option value="ultimos 6 meses">Últimos 6 meses</option>
+                <option value="ultimo 1 ano">Último 1 ano</option>
+                <option value="mais de 1 ano">Mais de 1 ano</option>
             </select>
         </span>
         <span class="flex flex-col">
             <span class="font-bold">Conservação</span>
             <select  [(ngModel)]="conservacaoFilter" (change)="onFilterChange()" class="bg-transparente text-gray-700 font-medium border-2 border-gray-700 w-44 h-10 rounded-full p-2 focus:outline-none">
-                    <option>Novo</option>
-                    <option>Excelente</option>
-                    <option>Regular</option>
-                    <option>Com defeitos</option>
-                    <option>Obsoleto</option>
-                    <option>Descartado</option>
+                    <option value="qualquer">Qualquer</option>    
+                    <option value="novo">Novo</option>
+                    <option value="excelente">Excelente</option>
+                    <option value="regular">Regular</option>
+                    <option value="com defeitos">Com defeitos</option>
+                    <option value="obsoleto">Obsoleto</option>
+                    <option value="descartado">Descartado</option>
             </select>
         </span>
     </div>  

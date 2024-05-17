@@ -41,29 +41,43 @@ export class FiltroComponent implements OnInit{
   constructor(private backendService: BackendService) {}
   
   selectedFilters: any = {};
-  nameFilter: string = '';
-  statusFilter: string = '' ;
-  precoFilter: string ='' ;
-  dataFilter: string = '';
-  conservacaoFilter: string = '';
+  nameFilter: string = 'Recente';
+  statusFilter: string = 'Todos' ;
+  precoFilter: string = 'todos' ;
+  dataFilter: string = 'qualquer data';
+  conservacaoFilter: string = 'qualquer';
   
   nameFilterOptions: string[] = ['Recente', 'A-Z', 'Mais antigo'];
 
   @Output() dataReady = new EventEmitter<any>();
 
   onFilterChange() {
-    // Update selectedFilters based on UI selections
-    this.selectedFilters = {
-      name: this.nameFilter,
-      status: this.statusFilter,
-      preco: this.precoFilter,
-      data: this.dataFilter,
-     deprecicao: this.conservacaoFilter
-    };
+    // Verifica se o filtro de nome é "Recente"
+    const name = this.nameFilter === 'Recente' ? '' : this.nameFilter;
+  
+    // Verifica se o filtro de status é "Todos"
+    const status = this.statusFilter === 'Todos' ? '' : this.statusFilter;
+  
+    // Verifica se o filtro de conservação é "qualquer"
+    const conservacao = this.conservacaoFilter === 'qualquer' ? '' : this.conservacaoFilter;
 
-    // Emit the event with filter data
+    const preco = this.precoFilter === 'todos' ? '' : this.precoFilter;
+    
+    const data = this.dataFilter === 'qualquer data' ? '' : this.dataFilter;
+  
+    // Atualiza os filtros selecionados com os valores adequados
+    this.selectedFilters = {
+      name: name,
+      status: status,
+      preco: preco,
+      data: data,
+      conservacao: conservacao
+    };
+  
+    // Emite o evento com os dados do filtro
     this.dataReady.emit(this.selectedFilters);
   }
+  
   ngOnInit(): void {
     this.onFilterChange()
       }

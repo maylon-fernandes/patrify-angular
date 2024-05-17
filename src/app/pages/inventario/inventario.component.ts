@@ -27,14 +27,15 @@ export class InventarioComponent implements OnInit {
     if (this.token) {
       this.backendService.Filter(this.filtros, this.token).subscribe(
         response => {
-          console.log(response.patrimonios);
+            console.log(response.patrimonios);
 
-          this.patrimonios = response.patrimonios.map((patrimonio: any) => {
+            this.patrimonios = response.patrimonios.map((patrimonio: any) => {
             const dateString = patrimonio.patr_dt_compra
             const date = new Date(dateString);
             const formattedDate = date.toLocaleDateString('pt-BR'); 
 
             const imagem = patrimonio.imagem;
+            console.log(imagem)
             const blob = b64toBlob(imagem, 'image/jpeg');
             const objectURL = URL.createObjectURL(blob);
             console.log(objectURL);
