@@ -24,4 +24,4 @@
 - **HTML5 &amp; CSS3:** Tecnologias para construção da interface do usuário.
 - **Tailwind CSS:** Framework CSS para estilização da aplicação.
 - **Node.js:** Servidor backend para API RESTful.
-- **MySQL:** Banco de dados SQL utilizado para armazenamento de dados.
+- **MySQL:** Linguagem de Banco de Dados utilizada para armazenamento de dados.
