@@ -4,6 +4,12 @@
 
 **Patrify** é um gestor de bens e ativos desenvolvido com Angular 16. Este projeto foi criado como parte do meu Trabalho de Conclusão de Curso (TCC) e tem como objetivo facilitar a gestão e monitoramento de propriedades e ativos.
 
+## Colaboradoes
+
+@maylon-fernandes - Designer de interface e funcionalidades do projeto / Dev Frontend.
+@keviwsilva - Integração de API, conexão entre Backend e Frontend / Dev FullStack.
+@Jm619353 - Desenvolvedor de Banco de Dados do projeto / Dev Backend.
+
 ## Funcionalidades
 
 - **Cadastro de Bens e Ativos:** Permite adicionar, editar e remover bens e ativos.
