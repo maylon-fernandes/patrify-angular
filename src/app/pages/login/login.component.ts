@@ -1,13 +1,14 @@
 import { Component, ElementRef, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { BackendService } from 'src/app/service/backend.service';
 import { Router } from '@angular/router';
 import axios from 'axios';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
+
 export class LoginComponent implements OnInit {
 
   token: string | null = null;
@@ -16,13 +17,16 @@ export class LoginComponent implements OnInit {
   i: number = 0;
   spanTexto!: HTMLElement; // Usando ! para indicar que spanTexto não será nulo
   errorMessage: string | null = null;
-  constructor(private elementRef: ElementRef, private router: Router, private backendService: BackendService) { }
-
-  fazerLogin() {
-    window.open('/senha', '_blank');
-  }
+  passwordInput: HTMLInputElement | null = null;
+  constructor(private elementRef: ElementRef, private router: Router, private backendService: BackendService, private http: HttpClient) { }
 
   ngOnInit(): void {
+    const passwordInput = document.getElementById('passwordreg') as HTMLInputElement;
+    if (passwordInput) {
+        passwordInput.addEventListener('input', () => {
+            this.validarSenhaForte(passwordInput.value);
+        });
+    }
     this.spanTexto = this.elementRef.nativeElement.querySelector('#organize')!;
     this.iniciarLoop();
     const textLogin: HTMLElement | null = document.getElementById('linkLogin');
@@ -30,6 +34,7 @@ export class LoginComponent implements OnInit {
     const loginPage: HTMLElement | null = document.querySelector('.login');
     const registerPage: HTMLElement | null = document.querySelector('.register');
     const inputLogin: NodeListOf<HTMLInputElement> | null = document.querySelectorAll('.input-login');
+    this.passwordInput = document.getElementById('passwordreg') as HTMLInputElement;
 
     if (textRegistro && loginPage && registerPage) {
       textRegistro.addEventListener('click', () => {
@@ -81,6 +86,10 @@ export class LoginComponent implements OnInit {
     }
 
 
+  }
+
+  fazerLogin() {
+    window.open('/senha', '_blank');
   }
 
   escreverTexto(): void {
@@ -148,84 +157,6 @@ export class LoginComponent implements OnInit {
 
   }
 
-  registerUser() {
-    const form = document.getElementById('formRegister') as HTMLFormElement;
-    if (!form) {
-      console.error("Formulário não encontrado.");
-      return;
-    }
-    const cnpj = form.elements.namedItem('cnpjreg') as HTMLInputElement;
-    const email = form.elements.namedItem('email') as HTMLInputElement;
-    const password = form.elements.namedItem('passwordreg') as HTMLInputElement;
-    const reppassword = form.elements.namedItem('reppassword') as HTMLInputElement;
-    
-    if (!cnpj || !cnpj.value) {
-      this.errorMessage = 'Por favor, informe um CNPJ.';
-      return;
-    }
-    else if (!email || !email.value) {
-      this.errorMessage = 'Por favor, informe um e-mail.';
-      return;
-    }
-    else if (!password || !password.value) {
-      this.errorMessage = 'Por favor, informe uma senha.';
-      return;
-    }
-    else if(!reppassword || !reppassword.value) {
-      this.errorMessage = 'Por favor, repita a senha correta';
-      return;
-    }
-    else if (form ) {
-
-      console.log('oiiuiiii');
-      
-      this.errorMessage = ''
-      const senha = password.value;
-      console.log(cnpj.value)
-      if (this.validarSenhaForte(senha)) {
-  
-        // Fazendo requisição à API do BrasilAPI para obter informações da empresa pelo CNPJ
-        axios.get(`https://brasilapi.com.br/api/cnpj/v1/${cnpj.value}`)
-          .then(response => {
-            const dadosCNPJ = response.data;
-            console.log(dadosCNPJ)
-            // Construindo os dados do usuário com base nos dados da empresa retornados pela API
-            const userData = {
-              name: dadosCNPJ.nome_fantasia,
-              cnpj: cnpj.value,
-              telefone1: dadosCNPJ.ddd_telefone_1,
-              telefone2: dadosCNPJ.ddd_telefone_2,
-              email: email.value,
-              razaoSocial: dadosCNPJ.razao_social,
-              atividadeEconomica: dadosCNPJ.cnae_fiscal_descricao,
-              endereco: `${dadosCNPJ.descricao_tipo_de_logradouro} ${dadosCNPJ.logradouro} Nº ${dadosCNPJ.numero}, ${dadosCNPJ.bairro}, ${dadosCNPJ.municipio} - ${dadosCNPJ.uf}`,
-              password: password.value
-            };
-            console.log(userData)
-            // Chamando o serviço de backend para registrar o usuário
-            this.backendService.registerUser(userData)
-              .subscribe(
-                response => {
-                  console.log('Usuário registrado com sucesso:', response);
-                },
-                error => {
-                  // Manipular erros de registro aqui (por exemplo, exibir mensagem de erro)
-                  console.error('Erro ao registrar usuário:', error);
-                }
-              );
-          })
-          .catch(error => {
-            // Trate os erros de requisição à API aqui (por exemplo, exibir mensagem de erro)
-            console.error('Erro ao obter dados do CNPJ:', error);
-          });
-  
-      } else {
-        this.errorMessage = 'Senha fraca. Por favor, inclua pelo menos 8 caracteres, incluindo letras minúsculas, maiúsculas, números e caracteres especiais.';
-      }
-    }
-  }
-  
-
   LoginUser() {
     const form = document.getElementById('formLogin') as HTMLFormElement;
     const cnpj = form.elements.namedItem('cnpj') as HTMLInputElement;
@@ -257,48 +188,137 @@ export class LoginComponent implements OnInit {
       );
   }
 
-  validarSenhaForte(senha: string): boolean {
-
-    // Verificar comprimento da senha
-
-    if (senha.length < 8) {
-
-      return false; // Senha muito curta
-
+  async registerUser() {
+    const form = document.getElementById('formRegister') as HTMLFormElement;
+    if (!form) {
+      console.error("Formulário não encontrado.");
+      return;
     }
 
-    // Verificar presença de dígitos, letras minúsculas, maiúsculas e caracteres especiais
+    const cnpj = form.elements.namedItem('cnpjreg') as HTMLInputElement | null;
+    const email = form.elements.namedItem('email') as HTMLInputElement | null;
+    const password = form.elements.namedItem('passwordreg') as HTMLInputElement | null;
+    const reppassword = form.elements.namedItem('reppassword') as HTMLInputElement | null;
 
-    const possuiDigito = /[0-9]/.test(senha);
-
-    const possuiMinuscula = /[a-z]/.test(senha);
-
-    const possuiMaiuscula = /[A-Z]/.test(senha);
-
-    const possuiEspecial = /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/.test(senha);
-
-    // Contar o número de requisitos atendidos
-
-    let requisitosAtendidos = 0;
-
-    if (possuiDigito) requisitosAtendidos++;
-
-    if (possuiMinuscula) requisitosAtendidos++;
-
-    if (possuiMaiuscula) requisitosAtendidos++;
-
-    if (possuiEspecial) requisitosAtendidos++;
-
-    // Verificar se pelo menos três requisitos foram atendidos
-
-    if (requisitosAtendidos < 3) {
-
-      return false; // Não atende aos critérios mínimos
-
+    if (!cnpj || !cnpj.value) {
+      this.errorMessage = 'Por favor, informe um CNPJ.';
+      return;
+    } else if (!email || !email.value) {
+      this.errorMessage = 'Por favor, informe um e-mail.';
+      return;
+    } else if (!this.validateEmail(email.value)) {
+      console.error('E-mail inválido.');
+      return;
+    } else if (!password || !password.value) {
+      this.errorMessage = 'Por favor, informe uma senha.';
+      return;
+    } else if (!reppassword || !reppassword.value) {
+      this.errorMessage = 'Por favor, repita a senha correta';
+      return;
     }
 
-    return true; // Senha forte
+    const senha = password.value;
 
+   
+
+    this.errorMessage = '';
+
+    if (await this.checkCNPJExists(cnpj.value)) {
+        // Fazendo requisição à API do BrasilAPI para obter informações da empresa pelo CNPJ
+        axios.get(`https://brasilapi.com.br/api/cnpj/v1/${cnpj.value}`)
+          .then(response => {
+            const dadosCNPJ = response.data;
+
+            // Construindo os dados do usuário com base nos dados da empresa retornados pela API
+            const userData = {
+              name: dadosCNPJ.nome_fantasia,
+              cnpj: cnpj.value,
+              telefone1: dadosCNPJ.ddd_telefone_1,
+              telefone2: dadosCNPJ.ddd_telefone_2,
+              email: email.value,
+              razaoSocial: dadosCNPJ.razao_social,
+              atividadeEconomica: dadosCNPJ.cnae_fiscal_descricao,
+              endereco: `${dadosCNPJ.descricao_tipo_de_logradouro} ${dadosCNPJ.logradouro} Nº ${dadosCNPJ.numero}, ${dadosCNPJ.bairro}, ${dadosCNPJ.municipio} - ${dadosCNPJ.uf}`,
+              password: password.value
+            };
+
+            // Chamando o serviço de backend para registrar o usuário
+            this.backendService.registerUser(userData)
+              .subscribe(
+                response => {
+                  console.log('Usuário registrado com sucesso:', response);
+                },
+                error => {
+                  // Manipular erros de registro aqui (por exemplo, exibir mensagem de erro)
+                  console.error('Erro ao registrar usuário:', error);
+                }
+              );
+          })
+          .catch(error => {
+            // Trate os erros de requisição à API aqui (por exemplo, exibir mensagem de erro)
+            console.error('Erro ao obter dados do CNPJ:', error);
+          });
+
+    } else {
+      this.errorMessage = 'Erro ao verificar CNPJ. Por favor, tente novamente mais tarde.';
+    }
+}
+
+
+
+  // Função para validar a força da senha
+  validarSenhaForte(senha: string): void {
+    const progressElement = document.getElementById('passwordStrength');
+    if (!progressElement) return;
+
+    // Verificar a força da senha
+    let strength = 0;
+
+    // Adicionar pontos baseados em critérios de senha
+    strength += senha.length >= 12 ? 1 : 0;
+    strength += /[a-z]/.test(senha) ? 1 : 0; // Lowercase letters
+    strength += /[A-Z]/.test(senha) ? 1 : 0; // Uppercase letters
+    strength += /\d/.test(senha) ? 1 : 0;     // Digits
+    strength += /[^A-Za-z0-9]/.test(senha) ? 1 : 0; // Special characters
+
+    // Atualizar a largura da barra de progresso com base na força da senha
+    const progressWidth = (strength / 5) * 100; // Assuming 5 points for maximum strength
+    progressElement.style.width = progressWidth + '%';
+
+    // Definir a cor da barra de progresso com base na força da senha
+    if (progressWidth < 40) {
+        progressElement.classList.remove('bg-warning', 'bg-success');
+        progressElement.classList.add('bg-danger');
+    } else if (progressWidth < 80) {
+        progressElement.classList.remove('bg-danger', 'bg-success');
+        progressElement.classList.add('bg-warning');
+    } else {
+        progressElement.classList.remove('bg-danger', 'bg-warning');
+        progressElement.classList.add('bg-success');
+    }
+}
+
+
+  // Function to validate CNPJ format (basic check, can be improved)
+  validateCNPJ(cnpj: string): boolean {
+    const cnpjLength = cnpj.length;
+    return cnpjLength === 14 && /^[0-9]+$/.test(cnpj);
   }
 
-}
+  // Function to validate email format (basic check)
+  validateEmail(email: string): boolean {
+    const emailRegex = /^[^\s@]+@[^\s@]+.[^\s@]+$/;
+    return emailRegex.test(email);
+  }
+
+  async checkCNPJExists(cnpj: string): Promise<boolean> {
+    try {
+      const cnpjVerification = await axios.get(`https://brasilapi.com.br/api/cnpj/v1/${cnpj}`);
+      return !!cnpjVerification.data; // Convert response.data to boolean
+    } catch (error) {
+      console.error('Erro ao verificar CNPJ:', error);
+      return false; // CNPJ not found or error occurred
+    }
+  }
+
+}      

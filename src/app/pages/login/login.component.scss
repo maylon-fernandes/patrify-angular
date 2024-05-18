@@ -13,17 +13,42 @@ $background-color_6: rgba(0, 0, 0, 0.5);
 $background-color_7: #fff;
 $border-color_1: var(--c);
 
-
-
-
-@keyframes progress {
-	0% {
-		width: 100%;
+.progress {
+	height: 20px; // Ajuste conforme necessário
+	margin-bottom: 20px; // Ajuste conforme necessário
+  
+	.progress-bar {
+	  transition: width 0.3s ease; // Adiciona uma transição suave à largura da barra de progresso
+	  width: 0; // Garante que a barra comece com largura zero
 	}
-	100% {
-		width: 0%;
+  
+	.bg-danger {
+	  background-color: #dc3545; // Vermelho para indicar uma senha fraca
 	}
+  
+	.bg-warning {
+	  background-color: #ffc107; // Amarelo para indicar uma senha moderada
+	}
+  
+	.bg-success {
+	  background-color: #28a745; // Verde para indicar uma senha forte
+	}
+  }
+  
+
+  .progress-bar {
+    width: 100%;
+    height: 5px;
+    background-color: #ddd; /* Specify your desired background color */
+    text-align: center;
+    line-height: 30px;
+    margin: 10px 0 0 0;
+    animation: progress 8s ease-in-out infinite;
 }
+  
+
+
+
 @keyframes email-move {
 	0% {
 		top: 125%;
@@ -144,15 +169,7 @@ body {
 	overflow: hidden;
 	animation: email-move 11s ease infinite;
 }
-.progress-bar {
-	width: 100%;
-	height: 5px;
-	background-color: $background-color_5;
-	text-align: center;
-	line-height: 30px;
-	margin: 10px 0 0 0;
-	animation: progress 8s ease-in-out infinite;
-}
+
 #alert {
 	width: 10rem;
 	height: 5rem;
