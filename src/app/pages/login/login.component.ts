@@ -23,9 +23,9 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     const passwordInput = document.getElementById('passwordreg') as HTMLInputElement;
     if (passwordInput) {
-        passwordInput.addEventListener('input', () => {
-            this.validarSenhaForte(passwordInput.value);
-        });
+      passwordInput.addEventListener('input', () => {
+        this.validarSenhaForte(passwordInput.value);
+      });
     }
     this.spanTexto = this.elementRef.nativeElement.querySelector('#organize')!;
     this.iniciarLoop();
@@ -200,6 +200,7 @@ export class LoginComponent implements OnInit {
     const password = form.elements.namedItem('passwordreg') as HTMLInputElement | null;
     const reppassword = form.elements.namedItem('reppassword') as HTMLInputElement | null;
 
+    // Valide os campos do formulário
     if (!cnpj || !cnpj.value) {
       this.errorMessage = 'Por favor, informe um CNPJ.';
       return;
@@ -217,59 +218,71 @@ export class LoginComponent implements OnInit {
       return;
     }
 
-    const senha = password.value;
+    // Verifique se as senhas coincidem
+    if (password.value !== reppassword.value) {
+      this.errorMessage = 'As senhas não coincidem.';
+      return;
+    }
 
-   
+    // Verifique se o CNPJ já existe
+    if (!await this.checkCNPJExists(cnpj.value)) {
+      this.errorMessage = 'Erro ao verificar CNPJ. Por favor, tente novamente mais tarde.';
+      return;
+    }
 
+    // Se todas as verificações passarem, limpe a mensagem de erro
     this.errorMessage = '';
 
     if (await this.checkCNPJExists(cnpj.value)) {
-        // Fazendo requisição à API do BrasilAPI para obter informações da empresa pelo CNPJ
-        axios.get(`https://brasilapi.com.br/api/cnpj/v1/${cnpj.value}`)
-          .then(response => {
-            const dadosCNPJ = response.data;
+      // Fazendo requisição à API do BrasilAPI para obter informações da empresa pelo CNPJ
+      axios.get(`https://brasilapi.com.br/api/cnpj/v1/${cnpj.value}`)
+        .then(response => {
+          const dadosCNPJ = response.data;
 
-            // Construindo os dados do usuário com base nos dados da empresa retornados pela API
-            const userData = {
-              name: dadosCNPJ.nome_fantasia,
-              cnpj: cnpj.value,
-              telefone1: dadosCNPJ.ddd_telefone_1,
-              telefone2: dadosCNPJ.ddd_telefone_2,
-              email: email.value,
-              razaoSocial: dadosCNPJ.razao_social,
-              atividadeEconomica: dadosCNPJ.cnae_fiscal_descricao,
-              endereco: `${dadosCNPJ.descricao_tipo_de_logradouro} ${dadosCNPJ.logradouro} Nº ${dadosCNPJ.numero}, ${dadosCNPJ.bairro}, ${dadosCNPJ.municipio} - ${dadosCNPJ.uf}`,
-              password: password.value
-            };
+          // Construindo os dados do usuário com base nos dados da empresa retornados pela API
+          const userData = {
+            name: dadosCNPJ.nome_fantasia,
+            cnpj: cnpj.value,
+            telefone1: dadosCNPJ.ddd_telefone_1,
+            telefone2: dadosCNPJ.ddd_telefone_2,
+            email: email.value,
+            razaoSocial: dadosCNPJ.razao_social,
+            atividadeEconomica: dadosCNPJ.cnae_fiscal_descricao,
+            endereco: `${dadosCNPJ.descricao_tipo_de_logradouro} ${dadosCNPJ.logradouro} Nº ${dadosCNPJ.numero}, ${dadosCNPJ.bairro}, ${dadosCNPJ.municipio} - ${dadosCNPJ.uf}`,
+            password: password.value
+          };
 
-            // Chamando o serviço de backend para registrar o usuário
-            this.backendService.registerUser(userData)
-              .subscribe(
-                response => {
-                  console.log('Usuário registrado com sucesso:', response);
-                },
-                error => {
-                  // Manipular erros de registro aqui (por exemplo, exibir mensagem de erro)
-                  console.error('Erro ao registrar usuário:', error);
-                }
-              );
-          })
-          .catch(error => {
-            // Trate os erros de requisição à API aqui (por exemplo, exibir mensagem de erro)
-            console.error('Erro ao obter dados do CNPJ:', error);
-          });
+          // Chamando o serviço de backend para registrar o usuário
+          this.backendService.registerUser(userData)
+            .subscribe(
+              response => {
+                console.log('Usuário registrado com sucesso:', response);
+                location.reload();
+              },
+              error => {
+                // Manipular erros de registro aqui (por exemplo, exibir mensagem de erro)
+                console.error('Erro ao registrar usuário:', error);
+              }
+            );
+        })
+        .catch(error => {
+          // Trate os erros de requisição à API aqui (por exemplo, exibir mensagem de erro)
+          console.error('Erro ao obter dados do CNPJ:', error);
+        });
 
     } else {
       this.errorMessage = 'Erro ao verificar CNPJ. Por favor, tente novamente mais tarde.';
     }
-}
+  }
 
 
 
   // Função para validar a força da senha
   validarSenhaForte(senha: string): void {
     const progressElement = document.getElementById('passwordStrength');
-    if (!progressElement) return;
+    const btnCadastro = document.getElementById('btnCadastro');
+
+    if (!progressElement || !btnCadastro) return;
 
     // Verificar a força da senha
     let strength = 0;
@@ -287,16 +300,20 @@ export class LoginComponent implements OnInit {
 
     // Definir a cor da barra de progresso com base na força da senha
     if (progressWidth < 40) {
-        progressElement.classList.remove('bg-warning', 'bg-success');
-        progressElement.classList.add('bg-danger');
+      progressElement.classList.remove('bg-warning', 'bg-success');
+      progressElement.classList.add('bg-danger');
+      btnCadastro.setAttribute('disabled', 'true');
     } else if (progressWidth < 80) {
-        progressElement.classList.remove('bg-danger', 'bg-success');
-        progressElement.classList.add('bg-warning');
+      progressElement.classList.remove('bg-danger', 'bg-success');
+      progressElement.classList.add('bg-warning');
+      btnCadastro.setAttribute('disabled', 'true');
     } else {
-        progressElement.classList.remove('bg-danger', 'bg-warning');
-        progressElement.classList.add('bg-success');
+      progressElement.classList.remove('bg-danger', 'bg-warning');
+      progressElement.classList.add('bg-success');
+      btnCadastro.removeAttribute('disabled');
     }
-}
+  }
+
 
 
   // Function to validate CNPJ format (basic check, can be improved)
