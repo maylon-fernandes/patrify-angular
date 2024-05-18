@@ -127,6 +127,22 @@ export class BackendService {
         })
       );
   }
+
+  localDescarte(localData: any) {
+    const urlregister = `${this.url}/descarte/listlocais`;
+    return this.http.post(urlregister, localData)
+      .pipe(
+        map(response => {
+          // Handle successful registration (e.g., return success message or user data)
+          return response;
+        }),
+        catchError(error => {
+          // Handle registration errors (e.g., return error message or throw exception)
+          return throwError(error);
+        })
+      );
+  }
+
   
 
 }
