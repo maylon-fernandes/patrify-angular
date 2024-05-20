@@ -57,39 +57,6 @@ export class InventarioComponent implements OnInit {
   }
   
   ngOnInit(): void {
-    // this.token = localStorage.getItem('token');
-    // console.log('Token recuperado do localStorage:', this.token);
     
-    // if (this.token) {
-    //   this.backendService.listPatry(this.token)
-    //     .subscribe(
-    //       response => {
-    //         console.log(response.patrimonios);
-
-    //         this.patrimonios = response.patrimonios.map((patrimonio: any) => {
-    //           const dateString = patrimonio.patr_dt_compra
-    //           const date = new Date(dateString);
-    //           const formattedDate = date.toLocaleDateString('pt-BR'); 
-
-    //           const imagem = patrimonio.imagem;
-    //           const blob = b64toBlob(imagem, 'image/jpeg');
-    //           const objectURL = URL.createObjectURL(blob);
-    //           console.log(objectURL);
-
-
-    //           return {
-    //             ...patrimonio,
-    //             date: formattedDate,
-    //             imageSrc: objectURL
-    //           };
-    //         });
-    //       },
-    //       error => {
-    //         console.error('Erro ao verificar autenticação do usuário:', error);
-    //       }
-    //     );
-    // } else {
-    //   console.error('Token não encontrado no localStorage.');
-    // }
   }
 }
