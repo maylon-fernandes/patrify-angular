@@ -9,7 +9,8 @@ export class BackendService {
 
   constructor(private http: HttpClient) { }
 
-  url = 'http://localhost:3000'
+  url = 'https://patrify-backend.vercel.app'
+  // url = 'http://localhost:3000'
 
   registerUser(userData: any) {
     const urlregister = `${this.url}/register/registeruser`;
