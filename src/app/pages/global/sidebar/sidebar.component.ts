@@ -7,6 +7,10 @@ import { Component, OnInit, HostListener } from '@angular/core';
 })
 export class SidebarComponent {
 
+  logout(){
+    localStorage.removeItem('token');
+  }
+
   sidebarFixed = false;
 
   @HostListener('window:scroll', [])

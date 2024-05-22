@@ -30,7 +30,7 @@ export class InventarioComponent implements OnInit {
             console.log(response.patrimonios);
 
             this.patrimonios = response.patrimonios.map((patrimonio: any) => {
-            const dateString = patrimonio.patr_dt_compra
+            const dateString = patrimonio.patr_dt_compr
             const date = new Date(dateString);
             const formattedDate = date.toLocaleDateString('pt-BR'); 
 
