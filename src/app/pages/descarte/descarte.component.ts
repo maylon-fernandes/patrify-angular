@@ -55,26 +55,25 @@ export class DescarteComponent implements OnInit {
     };
     console.log(requestBody);
     
-     
     this.backendService.localDescarte(requestBody)
-    .subscribe((response: any)=> {
-      this.localizacoes = response.localizacoes.map((localizacao: any) => {
-    
-        return {
-          nome: localizacao.name, 
-          localizacao: localizacao.vicinity,
-          contato: localizacao.phone,
-          website: localizacao.website,
-          url: localizacao.url,
-        
-        };
-      });
-      console.log(this.localizacoes);
-      
-    }, error => {
-      console.error('Error fetching recycling centers:', error);
-      this.errorMessage = 'An error occurred while searching for locations.'; // Informative error message
-    });
+.subscribe((response: any)=> {
+  this.localizacoes = response.localizacoes.map((localizacao: any) => {
+    const nomeReduzido = localizacao.name.substring(0, 20);
+    return {
+      nome: nomeReduzido, 
+      localizacao: localizacao.vicinity,
+      contato: localizacao.phone,
+      website: localizacao.website,
+      url: localizacao.url,
+    };
+  });
+  console.log(this.localizacoes);
+  
+}, error => {
+  console.error('Error fetching recycling centers:', error);
+  this.errorMessage = 'An error occurred while searching for locations.'; // Informative error message
+});
+
   
   
 
