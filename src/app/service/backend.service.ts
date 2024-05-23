@@ -94,9 +94,11 @@ export class BackendService {
       );
   }
 
+
+  
   patrimage(image: File, id: number) {
     const urlRegister = `${this.url}/patrimony/image/${id}`;
-  
+    
     const formData = new FormData();
     formData.append('image', image);
     console.log(formData);
@@ -115,6 +117,8 @@ export class BackendService {
         })
       );
   }
+
+
   
   Filter(FilterData: any, token: string): Observable<any> {
     const headers = new HttpHeaders({

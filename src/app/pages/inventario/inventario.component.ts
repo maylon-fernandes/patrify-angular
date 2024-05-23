@@ -36,15 +36,13 @@ export class InventarioComponent implements OnInit {
 
             const imagem = patrimonio.imagem;
             // Sconsole.log(imagem)
-            const blob = b64toBlob(imagem, 'image/jpeg');
-            const objectURL = URL.createObjectURL(blob);
-            console.log(objectURL);
+           
 
 
             return {
               ...patrimonio,
               date: formattedDate,
-              imageSrc: objectURL
+              imageSrc: imagem
             };
           });
         },
