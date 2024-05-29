@@ -1,45 +1,18 @@
-@keyframes textUp {
-    to {
-        transform: scale(1.5);
-        opacity: 0;
-    }
-}
+.wallpaper {
+    background-image: url('../../../assets/imgs/landingWllp.jpg');
+    width: 100vw;
+    height: 100vh;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 
-@keyframes fadeRight {
-    from {
-        transform: translateX(-50%);
-        opacity: 0;
+    .heroLeft {
+        width: 50vw;
+        height: 100%;
     }
-    to {
-        transform: translateX(0%);
-        opacity: 1;
+
+    .heroRight {
+        width: 50vw;
+        height: 100%;
     }
-}
-
-@keyframes fadeLeft {
-    from {
-        transform: translateX(50%);
-        opacity: 0;
-    }
-    to {
-        transform: translateX(0%);
-        opacity: 1;
-    }
-}
-
-#txt {
-    animation: textUp 1s ease;
-    animation-timeline: scroll();
-}
-
-#logo {
-    animation: fadeLeft 10s ease;
-    animation-timeline: scroll();
-    animation-range: cover 0% cover 50%;
-}
-
-#desc {
-    animation: fadeRight 10s ease;
-    animation-timeline: scroll();
-    animation-range: cover 0% cover 50%;
 }
