@@ -131,7 +131,7 @@ export class FiltroComponent implements OnInit{
             // Send image upload request only if successful
             if (response && response.newPatrimonyId) {
               console.log('oi')
-              this.backendService.patrimage(this.file , response.newPatrimonyId).pipe(
+              this.backendService.patrimage(this.file , response.newPatrimonyId, this.token || '').pipe(
                 tap((response) => {
                   console.log('Imagem enviada com sucesso:', response);
                   window.location.reload();

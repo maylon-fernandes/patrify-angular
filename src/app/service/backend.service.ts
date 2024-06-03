@@ -96,16 +96,19 @@ export class BackendService {
 
 
   
-  patrimage(image: File, id: number) {
+  patrimage(image: File, id: number, token: string) {
     const urlRegister = `${this.url}/patrimony/image/${id}`;
     
     const formData = new FormData();
     formData.append('image', image);
     console.log(formData);
-    
+
+    const headers = new HttpHeaders({
+      'Authorization': `${token}`
+    });
     
 
-    return this.http.post(urlRegister, formData)
+    return this.http.post(urlRegister, formData, {headers})
       .pipe(
         map(response => {
           // Handle successful registration (e.g., return success message or user data)
