@@ -102,7 +102,7 @@ export class FiltroComponent implements OnInit{
   registerPatr() {
     // Retrieve token from localStorage
     this.token = localStorage.getItem('token');
-    console.log('Token recuperado do localStorage:', this.token);
+    // console.log('Token recuperado do localStorage:', this.token);
   
     const requiresFile = true; // Flag indicating if file is mandatory
   
@@ -110,7 +110,7 @@ export class FiltroComponent implements OnInit{
     if (this.token && (this.file || !requiresFile)) {
       const patrimonioData = this.preparePatrimonioData();
   
-      console.log(patrimonioData);
+      // console.log(patrimonioData);
   
       // Create a FormData object for file upload
       const formData = new FormData();
@@ -118,19 +118,16 @@ export class FiltroComponent implements OnInit{
       // Append the file to FormData (replace 'file' with actual backend key)
       if (this.file && requiresFile) {
         formData.append('file', this.file);
-        console.log('Image appended to FormData:', this.file);
+        // console.log('Image appended to FormData:', this.file);
       }
   
       // Send POST request using HttpClient with FormData
       this.backendService.cadastrarPatrimonio(patrimonioData, this.token)
         .pipe(
           tap((response) => {
-            console.log('Patrimônio cadastrado com sucesso!');
-            console.log(response);
             
             // Send image upload request only if successful
             if (response && response.newPatrimonyId) {
-              console.log('oi')
               this.backendService.patrimage(this.file , response.newPatrimonyId, this.token || '').pipe(
                 tap((response) => {
                   console.log('Imagem enviada com sucesso:', response);
