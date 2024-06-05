@@ -45,6 +45,7 @@ $color_1: #fff;
 
 #logo {
     width: 150px;
+    margin-bottom: 1rem;
     transition: all 0.25s ease-out;
     &:hover {
         transform: translateY(-5px);
@@ -64,7 +65,10 @@ $color_1: #fff;
     border-radius: 25px;
 
     .title {
-        display: block;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
         margin-top: -15%;
         text-align: center;
     }

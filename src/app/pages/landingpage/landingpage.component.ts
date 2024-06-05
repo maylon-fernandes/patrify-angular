@@ -1,5 +1,5 @@
 import { Component, HostListener, ElementRef, Directive, AfterViewInit } from '@angular/core';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-landingpage',
   templateUrl: './landingpage.component.html',
@@ -10,12 +10,16 @@ export class LandingpageComponent implements AfterViewInit {
   private sections: HTMLElement[] = [];
   private isScrolling = false; // Flag to prevent rapid scrolling
 
-  constructor() { }
+  constructor(private router: Router) { }
+
 
   ngAfterViewInit() {
     this.sections = Array.from(document.querySelectorAll('.section'));
   }
 
+  login () {
+    this.router.navigate (['login']);
+  }
   @HostListener('wheel', ['$event'])
   onWheel(event: WheelEvent) {
     event.preventDefault();
