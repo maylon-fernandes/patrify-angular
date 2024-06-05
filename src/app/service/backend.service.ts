@@ -66,6 +66,17 @@ export class BackendService {
       );
   }
 
+
+  updatePassword(userData: any){
+    const url = `${this.url}/password-recovery`;
+    return this.http.post(url, userData)
+      .pipe(
+        catchError(error => {
+          return throwError(error);
+        })
+      );
+  }
+
   cadastrarPatrimonio(patrimonioData: any, token: string): Observable<any> {
     const headers = new HttpHeaders({
       'Authorization': `${token}`

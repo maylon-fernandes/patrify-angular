@@ -4,16 +4,16 @@
             <img src="../../../../assets/imgs/patrify letter logo.png" id="logo">
             <p>Esqueceu a senha?<br>Digite o CNPJ e o e-mail de acesso do seu usuário.</p>
         </div>
-        <div class="forms">
+        <div class="forms" (submit)="recpassword()">
             <form>
                 <div>
                   <label for="cnpj">CNPJ:</label>
-                  <input type="text" id="CNPJ" name="CNPJ">
+                  <input type="text" id="CNPJ" name="CNPJ" [(ngModel)]="cnpj" [ngModelOptions]="{standalone: true}">
                 </div>
                 
                 <div>
                   <label for="email">E-mail:</label>
-                  <input type="email" id="email" name="email">
+                  <input type="email" id="email" name="email" [(ngModel)]="email" [ngModelOptions]="{standalone: true}">
                 </div>
         
                 <button type="submit">Enviar</button>
