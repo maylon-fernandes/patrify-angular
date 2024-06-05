@@ -24,7 +24,7 @@
     <hr class="h-0.5 w-[100%] my-8 bg-gray-200 border-0 dark:bg-gray-700">
     <div class="flex items-center justify-center space-x-4 gap-8 w-[100%]">
         <span class="flex flex-col">
-            <span class="font-bold">Nome</span>
+            <span class="font-bold">Ordem</span>
             <select [(ngModel)]="nameFilter" (change)="onFilterChange()" class="bg-transparente text-gray-700 border-2 border-gray-700 font-medium w-44 h-10 rounded-full p-2 focus:outline-none">
                 <option *ngFor="let option of nameFilterOptions" [value]="option">{{ option }}</option>
               </select>
@@ -69,12 +69,12 @@
             <span class="font-bold">Conservação</span>
             <select  [(ngModel)]="conservacaoFilter" (change)="onFilterChange()" class="bg-transparente text-gray-700 font-medium border-2 border-gray-700 w-44 h-10 rounded-full p-2 focus:outline-none">
                     <option value="qualquer">Qualquer</option>    
-                    <option value="novo">Novo</option>
-                    <option value="excelente">Excelente</option>
-                    <option value="regular">Regular</option>
-                    <option value="com defeitos">Com defeitos</option>
-                    <option value="obsoleto">Obsoleto</option>
-                    <option value="descartado">Descartado</option>
+                    <option value="Novo">Novo</option>
+                    <option value="Excelente">Excelente</option>
+                    <option value="Regular">Regular</option>
+                    <option value="Com defeitos">Com defeitos</option>
+                    <option value="Obsoleto">Obsoleto</option>
+                    <option value="Descartado">Descartado</option>
             </select>
         </span>
     </div>  
