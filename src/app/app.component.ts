@@ -6,12 +6,16 @@ import { Router, NavigationStart, NavigationEnd } from '@angular/router';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
+
+
 export class AppComponent implements OnInit {
   loading: boolean = false;
 
   constructor(private router: Router) { }
 
+  
   ngOnInit() {
+    
     this.router.events.subscribe(event => {
       if (event instanceof NavigationStart) {
         console.log('Navigation started');
