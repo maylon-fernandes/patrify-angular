@@ -3,6 +3,9 @@ import { trigger, transition, style, animate } from '@angular/animations';
 import { BackendService } from 'src/app/service/backend.service';
 import { catchError, tap, throwError } from 'rxjs';
 import { b64toBlob } from 'src/app/utils/utils';
+import { NotifierService } from 'angular-notifier';
+import { ToastrService } from 'ngx-toastr';
+
 
 @Component({
   selector: 'filtro',
@@ -41,8 +44,8 @@ export class FiltroComponent implements OnInit{
 
   errorMessage: string | null = null;
 
-  constructor(private backendService: BackendService) {}
-  
+  constructor(private backendService: BackendService,private toastr: ToastrService) {  }
+
   selectedFilters: any = {};
   tipofilter: string = 'Todos'
   nameFilter: string = 'Recente';
@@ -164,11 +167,19 @@ export class FiltroComponent implements OnInit{
             if (response && response.newPatrimonyId) {
               this.backendService.patrimage(this.file , response.newPatrimonyId, this.token || '').pipe(
                 tap((response) => {
-                  console.log('Imagem enviada com sucesso:', response);
-                  window.location.reload();
+                  // console.log('Imagem enviada com sucesso:', response);
+                  
+                    this.toastr.success( 'Patrimonio Cadastrado', 'Sucesso',);
+                  
+                  setTimeout(() => {
+                    window.location.reload();
+                  }, 3000);
+                  
                 }),
                 catchError(error => {
                   console.error('Erro ao enviar imagem:', error);
+                  
+                  this.toastr.error( 'Erro no cadastro do projeto', 'Erro');
                   // Handle image upload errors (e.g., display error message)
                   return throwError(error);
                 })
@@ -178,6 +189,8 @@ export class FiltroComponent implements OnInit{
           }),
           catchError(error => {
             console.error('Erro ao cadastrar patrimônio:', error);
+            
+            this.toastr.error('Erro', 'Erro no cadastro do projeto');
             // Handle general errors (e.g., display error message)
             return throwError(error);
           })
