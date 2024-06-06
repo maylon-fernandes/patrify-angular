@@ -18,16 +18,13 @@ export class InventarioComponent implements OnInit {
   constructor(private http: HttpClient, private backendService: BackendService) {}
   
   onDataReady(filteredData: any) {
-    this.filtros = filteredData; // Update the inventory list with filtered data
-    console.log(this.filtros);
+    this.filtros = filteredData; 
 
     this.token = localStorage.getItem('token');
-    console.log('Token recuperado do localStorage:', this.token);
     
     if (this.token) {
       this.backendService.Filter(this.filtros, this.token).subscribe(
         response => {
-            console.log(response.patrimonios);
 
             this.patrimonios = response.patrimonios.map((patrimonio: any) => {
             const dateString = patrimonio.patr_dt_compr
@@ -35,7 +32,6 @@ export class InventarioComponent implements OnInit {
             const formattedDate = date.toLocaleDateString('pt-BR'); 
 
             const imagem = patrimonio.imagem;
-            // Sconsole.log(imagem)
            
 
 
