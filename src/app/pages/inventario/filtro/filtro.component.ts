@@ -120,8 +120,9 @@ export class FiltroComponent implements OnInit{
       const fileExtension = this.file.name.split('.').pop()?.toLowerCase();
       if (!fileExtension || !allowedExtensions.includes(fileExtension)) {
         this.errorMessage = 'Apenas arquivos JPG, JPEG e PNG são permitidos.';
+        this.toastr.warning( 'Apenas arquivos JPG, JPEG e PNG são permitidos.', 'Aviso');
+        
         this.file = null;
-        console.log(this.file)
         this.imageUrl = null;
         return;
       }

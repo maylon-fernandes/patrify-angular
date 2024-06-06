@@ -3,6 +3,7 @@ import { BackendService } from 'src/app/service/backend.service';
 import { Router } from '@angular/router';
 import axios from 'axios';
 import { HttpClient } from '@angular/common/http';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   templateUrl: './login.component.html',
@@ -18,7 +19,7 @@ export class LoginComponent implements OnInit {
   spanTexto!: HTMLElement; // Usando ! para indicar que spanTexto não será nulo
   errorMessage: string | null = null;
   passwordInput: HTMLInputElement | null = null;
-  constructor(private elementRef: ElementRef, private router: Router, private backendService: BackendService, private http: HttpClient) { }
+  constructor(private elementRef: ElementRef, private router: Router, private backendService: BackendService, private http: HttpClient, private toastr: ToastrService) { }
 
   ngOnInit(): void {
     const passwordInput = document.getElementById('passwordreg') as HTMLInputElement;
@@ -258,10 +259,17 @@ export class LoginComponent implements OnInit {
             .subscribe(
               response => {
                 console.log('Usuário registrado com sucesso:', response);
+                this.toastr.success( 'Usuário Registrado com sucesso, você sera redirecionado para a tela de login em 3 segundos', 'Sucesso');
+        
+                setTimeout(() => {
+                  this.router.navigate(['/login']);
+                }, 3000);
                 location.reload();
               },
               error => {
                 // Manipular erros de registro aqui (por exemplo, exibir mensagem de erro)
+                this.toastr.error( 'Erro ao Registrar usuário', 'Erro');
+        
                 console.error('Erro ao registrar usuário:', error);
               }
             );

@@ -18,14 +18,14 @@ export class AppComponent implements OnInit {
     
     this.router.events.subscribe(event => {
       if (event instanceof NavigationStart) {
-        console.log('Navigation started');
+        // console.log('Navigation started');
         this.loading = true;
   
       } else if (event instanceof NavigationEnd) {
-        console.log('Navigation ended');
+        // console.log('Navigation ended');
        setTimeout(() => {
         if (this.loading) { // Check if navigation is still ongoing
-          console.log('Navigation took too long, resetting loading state');
+          // console.log('Navigation took too long, resetting loading state');
           this.loading = false;
         }
       }, 800); // Adjust the timeout duration as needed

@@ -47,13 +47,11 @@ export class DescarteComponent implements OnInit {
 
   buscarLocais(tipo: string) {
     this.local = localStorage.getItem('localizacao');
-    console.log('Local recuperado do localStorage:', this.local);
     
     const requestBody = {
       tipoPatrimonio: tipo,
       localizacao: this.local
     };
-    console.log(requestBody);
     
     this.backendService.localDescarte(requestBody)
 .subscribe((response: any)=> {
@@ -67,7 +65,6 @@ export class DescarteComponent implements OnInit {
       url: localizacao.url,
     };
   });
-  console.log(this.localizacoes);
   
 }, error => {
   console.error('Error fetching recycling centers:', error);
