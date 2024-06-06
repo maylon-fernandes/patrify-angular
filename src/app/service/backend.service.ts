@@ -9,8 +9,8 @@ export class BackendService {
 
   constructor(private http: HttpClient) { }
 
-  url = 'https://patrify-backend.vercel.app'
-  // url = 'http://localhost:3000'
+  // url = 'https://patrify-backend.vercel.app'
+  url = 'http://localhost:3000'
 
   registerUser(userData: any) {
     const urlregister = `${this.url}/register/registeruser`;
@@ -69,6 +69,17 @@ export class BackendService {
 
   updatePassword(userData: any){
     const url = `${this.url}/password-recovery`;
+    return this.http.post(url, userData)
+      .pipe(
+        catchError(error => {
+          return throwError(error);
+        })
+      );
+  }
+
+  
+  ChangePassword(userData: any){
+    const url = `${this.url}/reset-password`;
     return this.http.post(url, userData)
       .pipe(
         catchError(error => {

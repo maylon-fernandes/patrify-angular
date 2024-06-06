@@ -9,11 +9,13 @@ import { ConfigComponent } from './pages/config/config.component';
 import { LandingpageComponent } from './pages/landingpage/landingpage.component';
 import { DescarteComponent } from './pages/descarte/descarte.component';
 import { AuthguardService } from '../app/service/authguard.service';
+import { RecsenhaComponent } from './recsenha/recsenha.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent,  }, // Rota para login page
   { path: 'inventario', component: InventarioComponent, canActivate: [AuthguardService] }, // Rota para inventory page
   {path: 'senha', component: SenhaComponent,  }, // Rota para esqueci a senha page
+  {path: 'recsenha', component: RecsenhaComponent},
   {path: 'usuario', component: UserpageComponent, canActivate: [AuthguardService] }, // Rota para pagina do usuário
   {path: 'home', component: HomeComponent, canActivate: [AuthguardService] }, // Rota para pagina de inicio
   {path: 'configs', component: ConfigComponent, canActivate: [AuthguardService] },

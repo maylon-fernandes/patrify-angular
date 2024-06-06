@@ -19,7 +19,9 @@ import { RouterModule } from '@angular/router';
 import { LandingpageComponent } from './pages/landingpage/landingpage.component';
 import { HeaderlandingComponent } from './pages/landingpage/headerlanding/headerlanding.component';
 import { DescarteComponent } from './pages/descarte/descarte.component';
-
+import { NotifierModule } from 'angular-notifier';
+import { ToastrModule } from 'ngx-toastr';
+import { RecsenhaComponent } from './recsenha/recsenha.component';
 
 // import { AuthGuard } from './service/authguard.service';
 
@@ -39,6 +41,7 @@ import { DescarteComponent } from './pages/descarte/descarte.component';
     LandingpageComponent,
     HeaderlandingComponent,
     DescarteComponent,
+    RecsenhaComponent,
   ],
   imports: [
     CommonModule,
@@ -47,7 +50,8 @@ import { DescarteComponent } from './pages/descarte/descarte.component';
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    ReactiveFormsModule,
+    ReactiveFormsModule, 
+    ToastrModule.forRoot(),
     RouterModule.forRoot([]),
   ],
   providers: [],
