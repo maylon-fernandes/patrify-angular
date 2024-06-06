@@ -153,8 +153,9 @@
             <div class="flex items-center justify-center border-2 w-[100%] h-64 border-gray-500 border-dashed">
             <!-- Imagem como elemento de input -->
             <label for="uploadInput" class="cursor-pointer flex flex-col justify-center items-center">
-                <img src="../../../../assets/imgs/upload-img.png" width="100px">
-                <input  type="file" id="uploadInput"   (change)="onFileSelected($event)" class="hidden">
+                <img [src]="imageUrl || '../../../../assets/imgs/upload-img.png'"  [ngStyle]="{'width.px': imageUrl ? 150 : 100,}" 
+                id="previewImage">
+                <input  type="file" id="uploadInput"   (change)="onFileSelected($event)" accept="image/jpeg, image/png"  class="hidden">
                 <span class="text-center mt-4 font-bold">Clique na área para fazer upload da imagem <br>(JPEG ou PNG)</span>
             </label>
         </div>

@@ -107,7 +107,7 @@ export class BackendService {
 
 
   
-  patrimage(image: File, id: number, token: string) {
+  patrimage(image: File | any, id: number, token: string) {
     const urlRegister = `${this.url}/patrimony/image/${id}`;
     
     const formData = new FormData();

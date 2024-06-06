@@ -34,10 +34,13 @@ export class FiltroComponent implements OnInit{
   descricao: string = '';
   depreciacao: number = 0;
   tipo: string = '';
-  file!: File;
+  file: File | null = null;
   id: number = 0;
   patrimonios: any[] = []; // Array to store all patrimonios
-  
+  imageUrl: string | ArrayBuffer | null | undefined= null;
+
+  errorMessage: string | null = null;
+
   constructor(private backendService: BackendService) {}
   
   selectedFilters: any = {};
@@ -89,13 +92,44 @@ export class FiltroComponent implements OnInit{
     this.mostrarAddPatrimonio = !this.mostrarAddPatrimonio;
   }
 
-  onFileSelected(event: Event) {
+  // onFileSelected(event: Event): void {
+  //   const inputElement = event.target as HTMLInputElement;
+  //   if (inputElement.files && inputElement.files.length > 0) {
+  //     this.file = inputElement.files[0];
+      
+  //     const reader = new FileReader();
+  //     reader.onload = (e) => {
+  //       this.imageUrl = e.target?.result;
+  //     };
+  //     reader.readAsDataURL(this.file);
+  //   }
+  // }
+
+
+  onFileSelected(event: Event): void {
     const inputElement = event.target as HTMLInputElement;
     if (inputElement.files && inputElement.files.length > 0) {
-        this.file = inputElement.files[0];
-    }
-}
+      this.file = inputElement.files[0];
+      this.errorMessage = null; // Reset error message
 
+      // Verifica a extensão do arquivo
+      const allowedExtensions = ['jpg', 'jpeg', 'png'];
+      const fileExtension = this.file.name.split('.').pop()?.toLowerCase();
+      if (!fileExtension || !allowedExtensions.includes(fileExtension)) {
+        this.errorMessage = 'Apenas arquivos JPG, JPEG e PNG são permitidos.';
+        this.file = null;
+        console.log(this.file)
+        this.imageUrl = null;
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        this.imageUrl = e.target?.result;
+      };
+      reader.readAsDataURL(this.file);
+    }
+  }
 
 
 
