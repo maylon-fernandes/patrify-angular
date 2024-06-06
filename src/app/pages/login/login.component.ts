@@ -88,9 +88,10 @@ export class LoginComponent implements OnInit {
 
   }
 
-  fazerLogin() {
-    window.open('/senha', '_blank');
-  }
+  // fazerLogin() {
+  //   window.open('/senha', '_blank');
+
+  // }
 
   escreverTexto(): void {
     if (this.spanTexto) {
