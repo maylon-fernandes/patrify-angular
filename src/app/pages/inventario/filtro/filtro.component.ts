@@ -174,7 +174,7 @@ export class FiltroComponent implements OnInit{
                   
                   setTimeout(() => {
                     window.location.reload();
-                  }, 3000);
+                  }, 1000);
                   
                 }),
                 catchError(error => {
