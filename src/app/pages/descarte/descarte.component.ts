@@ -56,7 +56,7 @@ export class DescarteComponent implements OnInit {
     this.backendService.localDescarte(requestBody)
 .subscribe((response: any)=> {
   this.localizacoes = response.localizacoes.map((localizacao: any) => {
-    const nomeReduzido = localizacao.name.substring(0, 20);
+    const nomeReduzido = localizacao.name;
     return {
       nome: nomeReduzido, 
       localizacao: localizacao.vicinity,

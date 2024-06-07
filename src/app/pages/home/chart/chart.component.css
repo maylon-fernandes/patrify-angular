@@ -1,0 +1,11 @@
+.canvas-container {
+    position: relative;
+    width: 400px; /* Ajuste a largura conforme necessário */
+    height: 200px; /* Ajuste a altura conforme necessário */
+  }
+  
+  canvas {
+    max-width: 100%;
+    max-height: 100%;
+  }
+  

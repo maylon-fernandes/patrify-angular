@@ -22,6 +22,7 @@ import { DescarteComponent } from './pages/descarte/descarte.component';
 import { NotifierModule } from 'angular-notifier';
 import { ToastrModule } from 'ngx-toastr';
 import { RecsenhaComponent } from './recsenha/recsenha.component';
+import { ChartComponent } from './pages/home/chart/chart.component';
 
 // import { AuthGuard } from './service/authguard.service';
 
@@ -42,6 +43,7 @@ import { RecsenhaComponent } from './recsenha/recsenha.component';
     HeaderlandingComponent,
     DescarteComponent,
     RecsenhaComponent,
+    ChartComponent,
   ],
   imports: [
     CommonModule,
