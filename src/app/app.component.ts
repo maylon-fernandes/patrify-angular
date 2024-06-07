@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationStart, NavigationEnd } from '@angular/router';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 @Component({
   selector: 'app',
@@ -8,7 +10,9 @@ import { Router, NavigationStart, NavigationEnd } from '@angular/router';
 })
 
 
+
 export class AppComponent implements OnInit {
+  
   loading: boolean = false;
 
   constructor(private router: Router) { }
@@ -16,6 +20,7 @@ export class AppComponent implements OnInit {
   
   ngOnInit() {
     
+    (window as any).gsap = gsap;
     this.router.events.subscribe(event => {
       if (event instanceof NavigationStart) {
         // console.log('Navigation started');
