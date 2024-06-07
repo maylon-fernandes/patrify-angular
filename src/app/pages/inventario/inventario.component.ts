@@ -58,10 +58,10 @@ export class InventarioComponent implements OnInit {
 
     // GUI EDIT
     
-    editMode: boolean = false;
+    editMode: boolean = false;  
 
     toggleEditMode(patrimonio: any): void {
-      patrimonio.editMode = !patrimonio.editMode; // Alternar o modo de edição para o patrimônio específico
+      patrimonio.editMode = !patrimonio.editMode; // Toggle the edit mode for the specific item
     }
     
     saveChanges(patrimonio: any): void {
@@ -92,6 +92,7 @@ export class InventarioComponent implements OnInit {
             .pipe(
               tap((response) => {
                 console.log('Resposta do backend:', response);
+                patrimonio.editMode = false;
                 // Lidar com a resposta do backend, se necessário
               }),
               catchError(error => {

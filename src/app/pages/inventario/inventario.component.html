@@ -31,22 +31,36 @@
                 </div>
               </div>
             </td>
-            <td class="px-6 py-4 whitespace-nowrap">
-              <div class="text-sm text-gray-900">{{ patrimonio.patr_name }}</div>
+
+            <td class="px-6 py-4 whitespace-nowrap relative">
+              <span *ngIf="!editMode" class="text-sm text-gray-900">{{ patrimonio.patr_name }}</span>
+              <input *ngIf="patrimonio.editMode" type="text" [(ngModel)]="patrimonio.patr_name" class="absolute top-0 left-0 px-6 py-4 text-sm text-gray-500 bg-transparent border-none w-full h-full" />
             </td>
-            <td class="px-6 py-4 whitespace-nowrap">
-              <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full " [ngClass]="{
-                'bg-green-100 text-green-800': patrimonio.patr_ativoinativo === 'Ativo',
-                'bg-red-100 text-red-800': patrimonio.patr_ativoinativo === 'Não ativo'
+
+            <td class="px-6 py-4 whitespace-nowrap relative">
+              <span *ngIf="!editMode && !patrimonio.editMode" class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full " [ngClass]="{
+                  'bg-green-100 text-green-800': patrimonio.patr_ativoinativo === 'Ativo',
+                  'bg-red-100 text-red-800': patrimonio.patr_ativoinativo === 'Não ativo'
               }">{{patrimonio.patr_ativoinativo}}</span>
+              <select *ngIf="patrimonio.editMode" [(ngModel)]="patrimonio.patr_ativoinativo" class="absolute top-0 left-0 px-6 py-4 text-sm text-gray-500 bg-transparent border-none w-full h-full z-10">
+                  <option value="Ativo">Ativo</option>
+                  <option value="Não ativo">Não ativo</option>
+              </select>
+          </td>
+          
+          
+          
+          
+            <td class="px-6 py-4 whitespace-nowrap relative" id="local">
+              <span  *ngIf="!editMode" class="text-sm text-gray-900">{{patrimonio.patr_local}}</span>
+              <input *ngIf="patrimonio.editMode" type="text" [(ngModel)]="patrimonio.patr_local" class="absolute top-0 left-0 px-6 py-4 text-sm text-gray-500 bg-transparent border-none w-full h-full" />
             </td>
-            <td class="px-6 py-4 whitespace-nowrap" id="local">
-              <div class="text-sm text-gray-900">{{patrimonio.patr_local}}</div>
+
+            <td class="relative">
+              <span *ngIf="!editMode" class="px-6 py-4 whitespace-nowrap text-sm text-gray-500" id="valor">{{ patrimonio.patr_valor }}</span>
+              <input *ngIf="patrimonio.editMode" type="text" [(ngModel)]="patrimonio.patr_valor" class="absolute top-0 left-0 px-6 py-4 text-sm text-gray-500 bg-transparent border-none w-full h-full" />
             </td>
-            <td *ngIf="!editMode" class="px-6 py-4 whitespace-nowrap text-sm text-gray-500" id="valor">{{ patrimonio.patr_valor }}</td>
-            <td *ngIf="patrimonio.editMode">
-              <input type="text" [(ngModel)]="patrimonio.patr_valor" />
-            </td>
+          
             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500" id="data">
               {{patrimonio.date}}
             </td>
@@ -54,13 +68,16 @@
               <span
                 class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">{{patrimonio.patr_depreciacao}}</span>
             </td>
-            
+            <!-- Campos de edição, exibidos apenas no modo de edição -->
+           
             <!-- Botões de ação, alternando entre Editar e Salvar -->
             <td>
               <!-- Botão Editar -->
               <button *ngIf="!patrimonio.editMode" (click)="toggleEditMode(patrimonio)">Editar</button>
+
               <!-- Botão Salvar -->
               <button *ngIf="patrimonio.editMode" (click)="saveChanges(patrimonio)">Salvar</button>
+
             </td>
           </tr>
           <!-- Row 2, 3, ... -->
