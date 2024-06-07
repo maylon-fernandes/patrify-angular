@@ -37,6 +37,44 @@ export class LoginComponent implements OnInit {
     const inputLogin: NodeListOf<HTMLInputElement> | null = document.querySelectorAll('.input-login');
     this.passwordInput = document.getElementById('passwordreg') as HTMLInputElement;
 
+    function formatCNPJ(value: string): string {
+      // Remove todos os caracteres que não são dígitos
+      value = value.replace(/\D/g, '');
+
+      // Adiciona os pontos e traços no CNPJ
+      if (value.length > 12) value = value.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2}).*/, '$1.$2.$3/$4-$5');
+      else if (value.length > 8) value = value.replace(/(\d{2})(\d{3})(\d{3})(\d{4}).*/, '$1.$2.$3/$4');
+      else if (value.length > 5) value = value.replace(/(\d{2})(\d{3})(\d{3}).*/, '$1.$2.$3');
+      else if (value.length > 2) value = value.replace(/(\d{2})(\d{3}).*/, '$1.$2');
+
+      return value;
+    }
+
+    // Função para atualizar o campo de texto
+    function handleInput(event: Event): void {
+      const input = event.target as HTMLInputElement;
+      const start = input.selectionStart || 0;
+      const end = input.selectionEnd || 0;
+
+      input.value = formatCNPJ(input.value);
+
+      // Ajusta a posição do cursor
+      let newPos = start + (input.value.length - (input.value.replace(/\D/g, '').length));
+      input.setSelectionRange(newPos, newPos);
+    }
+
+    // Adiciona o evento de input ao campo de texto
+    const cnpjInput = document.getElementById('cnpj')
+    if (cnpjInput) {
+      cnpjInput.addEventListener('input', handleInput);
+    }
+
+
+ const cnpjInput1 = document.getElementById('cnpjreg')
+    if (cnpjInput1) {
+      cnpjInput1.addEventListener('input', handleInput);
+    }
+
     if (textRegistro && loginPage && registerPage) {
       textRegistro.addEventListener('click', () => {
         loginPage.style.transform = 'translateX(-100vw)';
@@ -89,10 +127,6 @@ export class LoginComponent implements OnInit {
 
   }
 
-  // fazerLogin() {
-  //   window.open('/senha', '_blank');
-
-  // }
 
   escreverTexto(): void {
     if (this.spanTexto) {
@@ -169,6 +203,8 @@ export class LoginComponent implements OnInit {
       password: password.value
     };
 
+    
+
     console.log(loginData)
 
     this.backendService.LoginUser(loginData)
@@ -201,6 +237,40 @@ export class LoginComponent implements OnInit {
     const email = form.elements.namedItem('email') as HTMLInputElement | null;
     const password = form.elements.namedItem('passwordreg') as HTMLInputElement | null;
     const reppassword = form.elements.namedItem('reppassword') as HTMLInputElement | null;
+
+    function formatCNPJ(value: string): string {
+  // Remove todos os caracteres que não são dígitos
+  value = value.replace(/\D/g, '');
+
+  // Adiciona os pontos e traços no CNPJ
+  if (value.length > 12) value = value.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2}).*/, '$1.$2.$3/$4-$5');
+  else if (value.length > 8) value = value.replace(/(\d{2})(\d{3})(\d{3})(\d{4}).*/, '$1.$2.$3/$4');
+  else if (value.length > 5) value = value.replace(/(\d{2})(\d{3})(\d{3}).*/, '$1.$2.$3');
+  else if (value.length > 2) value = value.replace(/(\d{2})(\d{3}).*/, '$1.$2');
+
+  return value;
+}
+
+// Função para atualizar o campo de texto
+function handleInput(event: Event): void {
+  const input = event.target as HTMLInputElement;
+  const start = input.selectionStart || 0;
+  const end = input.selectionEnd || 0;
+  
+  input.value = formatCNPJ(input.value);
+
+  // Ajusta a posição do cursor
+  let newPos = start + (input.value.length - (input.value.replace(/\D/g, '').length));
+  input.setSelectionRange(newPos, newPos);
+}
+
+// Adiciona o evento de input ao campo de texto
+const cnpjInput = form.elements.namedItem('cnpjreg') as HTMLInputElement | null;
+if (cnpjInput) {
+  cnpjInput.addEventListener('input', handleInput);
+}
+
+
 
     // Valide os campos do formulário
     if (!cnpj || !cnpj.value) {
