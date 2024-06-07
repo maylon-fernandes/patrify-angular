@@ -168,6 +168,21 @@ export class BackendService {
   }
   
 
-  
+  // GUI EDIT
+  salvarEdicaoDoPatrimonio(dadosPatrimonio: any, patrimonioID: string, token: string): Observable<any> {
+    const headers = new HttpHeaders({
+      'Authorization': `${token}`
+    });
+
+    const url = `${this.url}/patrimony/update/${patrimonioID}`;
+
+    return this.http.put(url, dadosPatrimonio, { headers }).pipe(
+      catchError(error => {
+        // Lidar com erros da atualização do patrimônio
+        return throwError(error);
+      })
+    );
+  }
+
 
 }

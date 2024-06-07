@@ -1,8 +1,8 @@
 <body class="flex bg-gray-100 h-max">
-  <sidebar class="sidebar"></sidebar>  <!-- SIDEBAR -->
+  <sidebar class="sidebar"></sidebar> <!-- SIDEBAR -->
   <div class="flex flex-col flex-1">
     <header-global></header-global> <!-- HEADER -->
-    <filtro (dataReady)="onDataReady($event)"></filtro> <!-- FILTRO DO INVENTÁRIO -->   
+    <filtro (dataReady)="onDataReady($event)"></filtro> <!-- FILTRO DO INVENTÁRIO -->
     <div class="overflow-x-auto mt-4">
       <table class="table-auto w-[98%] mx-auto divide-y divide-gray-200">
         <thead class="bg-gray-50">
@@ -10,10 +10,15 @@
             <th scope="col" class="px-6 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Imagem</th>
             <th scope="col" class="px-6 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Nome</th>
             <th scope="col" class="px-6 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Status</th>
-            <th scope="col" class="px-6 py-3 text-left font-bold text-gray-500 uppercase tracking-wider" id="local">Localização</th>
-            <th scope="col" class="px-6 py-3 text-left font-bold text-gray-500 uppercase tracking-wider" id="valor">Preço</th>
-            <th scope="col" class="px-6 py-3 text-left font-bold text-gray-500 uppercase tracking-wider" id="data">Data</th>
-            <th scope="col" class="px-6 py-3 text-left font-bold text-gray-500 uppercase tracking-wider" id="conservacao">Conservação</th>
+            <th scope="col" class="px-6 py-3 text-left font-bold text-gray-500 uppercase tracking-wider" id="local">
+              Localização</th>
+            <th scope="col" class="px-6 py-3 text-left font-bold text-gray-500 uppercase tracking-wider" id="valor">
+              Preço</th>
+            <th scope="col" class="px-6 py-3 text-left font-bold text-gray-500 uppercase tracking-wider" id="data">Data
+            </th>
+            <th scope="col" class="px-6 py-3 text-left font-bold text-gray-500 uppercase tracking-wider"
+              id="conservacao">Conservação</th>
+            <th scope="col" class="px-6 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Ações</th>
           </tr>
         </thead>
         <tbody class="bg-white divide-y divide-gray-200 transition-colors ">
@@ -30,8 +35,7 @@
               <div class="text-sm text-gray-900">{{ patrimonio.patr_name }}</div>
             </td>
             <td class="px-6 py-4 whitespace-nowrap">
-              <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full "
-              [ngClass]="{
+              <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full " [ngClass]="{
                 'bg-green-100 text-green-800': patrimonio.patr_ativoinativo === 'Ativo',
                 'bg-red-100 text-red-800': patrimonio.patr_ativoinativo === 'Não ativo'
               }">{{patrimonio.patr_ativoinativo}}</span>
@@ -39,19 +43,29 @@
             <td class="px-6 py-4 whitespace-nowrap" id="local">
               <div class="text-sm text-gray-900">{{patrimonio.patr_local}}</div>
             </td>
-            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500" id="valor">
-              ${{patrimonio.patr_valor}}
+            <td *ngIf="!editMode" class="px-6 py-4 whitespace-nowrap text-sm text-gray-500" id="valor">{{ patrimonio.patr_valor }}</td>
+            <td *ngIf="patrimonio.editMode">
+              <input type="text" [(ngModel)]="patrimonio.patr_valor" />
             </td>
             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500" id="data">
               {{patrimonio.date}}
             </td>
             <td class="px-6 py-4 whitespace-nowrap" id="conservacao">
-              <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">{{patrimonio.patr_depreciacao}}</span>
+              <span
+                class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">{{patrimonio.patr_depreciacao}}</span>
+            </td>
+            
+            <!-- Botões de ação, alternando entre Editar e Salvar -->
+            <td>
+              <!-- Botão Editar -->
+              <button *ngIf="!patrimonio.editMode" (click)="toggleEditMode(patrimonio)">Editar</button>
+              <!-- Botão Salvar -->
+              <button *ngIf="patrimonio.editMode" (click)="saveChanges(patrimonio)">Salvar</button>
             </td>
           </tr>
           <!-- Row 2, 3, ... -->
         </tbody>
       </table>
     </div>
-    </div>
+  </div>
 </body>
