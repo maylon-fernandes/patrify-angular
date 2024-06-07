@@ -1,5 +1,9 @@
 body {
     overflow-x: hidden;
+    
+    h1, p, span {
+        pointer-events: none;
+    }
 }
 
 .wallpaper {
@@ -145,33 +149,252 @@ body {
     width: 100%;
     height: 150vh;
     display: flex;
+    overflow: hidden;
     flex-direction: column;
     justify-content: center;
     background-color: #333333;
-    
+
+
     .contentThree-functions {
         display: flex;
-        padding-left: 50px;
+        flex-direction: column;
         width: 100%;
         height: 100%;
 
-    
         .contentThree-title {
             display: flex;
+            flex-direction: column;
+            text-align: center;
+            justify-content: center;
+            align-items: center;
             width: 100%;
-            height: 100px;
-            
+            height: 125px;
+    
             h1 {
                 font-size: 75px;
                 font-weight: bold;
+                color: #a3a3a3;
+            }
+    
+            .titleLine {
+                height: 5px;
+                width: 700px;
+                background-image: linear-gradient(to right, #b60084, #e0116c, #fb4250, #ff7131, #ff9e00);
+                background-color: #fff;
+            }
+        }
+        }
+
+        
+        .contentThree-list {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            justify-content: center;
+
+            .main {
+  
+                display:flex;
+                flex-direction:row;
+                width:1200px; 
+                height:600px;
+                margin-top: 25px;
+              }
+              
+              /*Device below 1024px, tablet/mobile*/
+              @media(max-width:1024px){
+                
+                .main {
+                
+                display:flex;
+                flex-direction:column;
+                width:100%;   
+                height:auto;
+                
+              } 
+              }
+              
+              .column {
+                
+                width:25%;
+                transition: width 0.5s;
+                overflow: hidden;
+                position:relative;
+                display:flex;
+                flex-direction:column;
+                justify-content:flex-end;
+                cursor:pointer;
+                
+              }
+              
+              .column:nth-child(1) {
+
+                background-image: url('../../../assets/imgs/inventario.png');
+                background-size:cover;
+                background-position:center center;
+                border-radius: 10px 0px 0px 10px;
+                
+              }
+              
+              .column:nth-child(2) {
+                
+                background-image: url('../../../assets/imgs/userpage.png');
+                background-size:cover;
+                background-position: 5% 1%;
+                
+              }
+              
+              .column:nth-child(3) {
+                
+                background-image: url('../../../assets/imgs/descarte.png');
+                background-size:cover;
+                background-position:center center;
+                
+              }
+              
+              .column:nth-child(4) {
+                
+                background-image: url('http://dmmotionarts.com/wp-content/uploads/2024/01/pietro-de-grandi-T7K4aEPoGGk-unsplash.jpg');
+                background-size:cover;
+                background-position:center center;
+                border-radius: 0px 10px 10px 0px;
+              }
+              
+              /*Border Styling for device width below 1024px, Tablet/Mobile*/
+              @media(max-width:1024px){
+                
+                .column:nth-child(1) {
+                
+                 border-radius: 10px 10px 0px 0px;
+                
+              }
+                
+                .column:nth-child(4) {
+                
+                 border-radius: 0px 0px 10px 10px;
+              }
+              }
+              
+              /*Desktop Styling*/
+              @media screen and (min-width: 1025px) {
+                          
+                  /*Clicked column styling*/
+                  .expanded {
+                      
+                  width: 150% !important;
+                  
+                  }
+                  }
+                  
+                  .expanded:after {
+                      
+                      content: '';
+                      background: rgba(0,0,0,0.6);
+                      position: absolute;
+                      left: 0;
+                      top: 0;
+                      height: 100%;
+                      width: 100%;
+                      z-index: 0;
+                      pointer-events:none;
+                      
+                  }
+                    
+              /*Tablet and mobile, below 1025px*/  
+              @media (max-width: 1024px) {
+                      
+              .column {
+                      
+                      width:100%;
+                      transition: height 0.5s;
+                      height: 120px;
+                      
+              }    
+                      
+              /*Clicked column styling*/
+              .expanded{
+                      
+                  height: 400px !important;         
+              
+                  }
+               }
+                  
+              /*Inner elements inside column container styling*/
+              .inner-element {
+                      
+                opacity: 0;
+                transition: opacity 0s;
+                z-index: 2;
+                padding:20px;
+                background:transparent;
+                position:absolute;
+                left:0;
+                bottom:100px;
+                    
+              }
+              
+              .inner-element h2{
+                
                 background-clip: text;
                 -webkit-background-clip: text;
                 -webkit-text-fill-color: transparent;
                 color: white;
-                background-image: linear-gradient(to right top, #4c1084, #740686, #970086, #b60084, #e0116c, #fb4250, #ff7131, #ff9e00);
-            }
+                background-image: linear-gradient(to right top, #e0116c, #fb4250, #ff7131, #ff9e00);
+                font-size:48px;
+                font-weight: bold;
+                text-shadow: rgb(255, 255, 255) 0px -4px;
+              }
+              
+              .inner-element p{
+                
+                color:white;
+                text-shadow: black 1px 2px;
+                font-size:16px;
+                font-weight:100;
+                
+              }
+                  
+              /*Inner elements made visible on clicked column*/
+              .inner-element.active {
+                            
+               opacity: 1; 
+               transition: opacity 0.5s 0.4s;        
+                     
+              }
+              
+              .icons {
+                
+                position:absolute;
+                bottom:20px;
+                left:18px;
+                font-size:40px;
+                padding:20px;
+                background-image: linear-gradient(to right top, #e0116c, #fb4250, #ff7131, #ff9e00);
+                color: #262626;
+                z-index:2;
+                border-radius:50%;
+                height:40px;
+                width:40px;
+                display:flex;
+                justify-content:center;
+                align-items:center;
+                 
+              }
+              
+              .DMmotionarts{
+                
+                position:absolute;
+                width:200px;
+                left:0;
+                bottom:0;
+                
+              }
         }
     }
+    
+.contentFour {
+    width: 100vw;
+    height: 100vh;
 }
 
 
