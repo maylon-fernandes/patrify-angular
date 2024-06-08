@@ -19,7 +19,6 @@ export class ChartComponent implements OnInit{
   ngOnInit(): void {
     this.filterfunction().then((tiposPatrimonios: any) => {
       this.tipospatr = tiposPatrimonios;
-      console.log(this.tipospatr);
       this.renderChart(this.tipospatr);
     }).catch(error => {
       console.error(error);
@@ -45,20 +44,64 @@ export class ChartComponent implements OnInit{
               // Contar o número de patrimônios
               const tiposPatrimonios: any = [];
   
+
+
+              const contagemTipo: { contagem: number; tipo: any; }[] = []; // Array para contagem e tipo
+              const ativoInativoContagemAtivo: { ativoinativo: any; contagemativ: number }[] = [];
+              const resultadoFinal = [];
+
               this.patrimonios.forEach(patrimonio => {
-                let tipoEncontrado = tiposPatrimonios.find((tipo: { tipo: any; }) => tipo.tipo === patrimonio.patr_tipo);
+                const tipo = patrimonio.patr_tipo;
+                const ativoInativo = patrimonio.patr_ativoinativo;
+                let contagemAtivo = 0;
               
-                if (!tipoEncontrado) {
-                  tiposPatrimonios.push({
-                    tipo: patrimonio.patr_tipo,
-                    contagem: 1
+                // Verifica se o tipo já existe no array de contagem/tipo
+                const tipoExistenteContagem = contagemTipo.find(tipoContagem => tipoContagem.tipo === tipo);
+              
+                // Cria um novo objeto contagem/tipo se o tipo não existir
+                if (!tipoExistenteContagem) {
+                  contagemTipo.push({
+                    contagem: 0,
+                    tipo: tipo
                   });
-                } else {
-                  tipoEncontrado.contagem++;
                 }
+              
+                // Atualiza as contagens do tipo encontrado (novo ou existente) no array contagem/tipo
+                contagemTipo.forEach(tipoContagem => {
+                  if (tipoContagem.tipo === tipo) {
+                    tipoContagem.contagem++;
+                  }
+                });
+              
+                // Verifica se o tipo e ativo/inativo já existem no array ativo/inativo/contagemativ
+                const ativoInativoExistente = ativoInativoContagemAtivo.find(
+                  ativoInativoContagemAtivoItem =>
+                    ativoInativoContagemAtivoItem.ativoinativo === ativoInativo
+                );
+              
+                // Cria um novo objeto ativo/inativo/contagemativ se a combinação não existir
+                if (!ativoInativoExistente) {
+                  ativoInativoContagemAtivo.push({
+                    ativoinativo: ativoInativo,
+                    contagemativ: 0
+                  });
+                }
+              
+                // Atualiza as contagens do tipo e ativo/inativo encontrado (novo ou existente)
+                ativoInativoContagemAtivo.forEach(ativoInativoContagemAtivoItem => {
+                  if (
+                    ativoInativoContagemAtivoItem.ativoinativo === ativoInativo 
+                  ) {
+                    ativoInativoContagemAtivoItem.contagemativ++;
+                  }
+                });
               });
-  
-              resolve(tiposPatrimonios); // Resolve the Promise with the result
+
+              resultadoFinal.push(...contagemTipo);
+              resultadoFinal.push(...ativoInativoContagemAtivo);
+
+
+              resolve(resultadoFinal); // Resolve the Promise with the result
             } else {
               console.error('Erro ao recuperar patrimônios da API: ', response);
               reject('Erro ao recuperar patrimônios da API');
@@ -76,18 +119,47 @@ export class ChartComponent implements OnInit{
   
 
 
-  renderChart(tipospatr: any){
-    console.log(tipospatr)
-    const labels = tipospatr.map((tipo: { tipo: any; }) => tipo.tipo);
-    const data = tipospatr.map((tipo: { contagem: any; }) => tipo.contagem);
 
+  renderChart(tipospatr: any){
+
+    const filteredDataativ = tipospatr.filter((tipo: { ativoinativo: any; }) => tipo.ativoinativo);
+    const filteredDatatipo = tipospatr.filter((tipo: { tipo: any; }) => tipo.tipo);
+
+    const labels = filteredDatatipo.map((tipo: { tipo: any; }) => tipo.tipo);
+    const tiposnumber = filteredDatatipo.map((tipo: { contagem: any; }) => tipo.contagem);
+
+    const ativ = filteredDataativ.map((tipo: { ativoinativo: any; }) => tipo.ativoinativo);
+    const numberativ = filteredDataativ.map((tipo: { contagemativ: any; }) => tipo.contagemativ);
+
+
+    
    const myChart = new Chart("typechart", {
     type: 'doughnut',
     data: {
       labels: labels,
       datasets: [{
         label: '',
-        data: data,
+        data: tiposnumber,
+        borderWidth: 1,
+        backgroundColor: [
+          '#380664',
+          '#970086',
+          '#b60084',
+          '#ff7131',
+          '#ff9e00'
+        ],
+      }]
+    },
+    
+  });
+
+  const Chart2  = new Chart("activechart", {
+    type: 'doughnut',
+    data: {
+      labels: ativ,
+      datasets: [{
+        label: '',
+        data: numberativ,
         borderWidth: 1,
         backgroundColor: [
           '#380664',
