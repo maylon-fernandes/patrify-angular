@@ -37,6 +37,46 @@ export class LoginComponent implements OnInit {
     const inputLogin: NodeListOf<HTMLInputElement> | null = document.querySelectorAll('.input-login');
     this.passwordInput = document.getElementById('passwordreg') as HTMLInputElement;
 
+    function formatCNPJ(value: string): string {
+      // Remove todos os caracteres que não são dígitos
+      value = value.replace(/\D/g, '');
+
+      // Adiciona os pontos e traços no CNPJ
+      if (value.length > 12) value = value.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2}).*/, '$1.$2.$3/$4-$5');
+      else if (value.length > 8) value = value.replace(/(\d{2})(\d{3})(\d{3})(\d{4}).*/, '$1.$2.$3/$4');
+      else if (value.length > 5) value = value.replace(/(\d{2})(\d{3})(\d{3}).*/, '$1.$2.$3');
+      else if (value.length > 2) value = value.replace(/(\d{2})(\d{3}).*/, '$1.$2');
+
+      return value;
+    }
+
+    // Função para atualizar o campo de texto
+    function handleInput(event: Event): void {
+      const input = event.target as HTMLInputElement;
+      const start = input.selectionStart || 0;
+      const end = input.selectionEnd || 0;
+
+      input.value = formatCNPJ(input.value);
+
+      
+
+      // Ajusta a posição do cursor
+      let newPos = start + (input.value.length - (input.value.replace(/\D/g, '').length));
+      input.setSelectionRange(newPos, newPos);
+    }
+
+    // Adiciona o evento de input ao campo de texto
+    const cnpjInput = document.getElementById('cnpj')
+    if (cnpjInput) {
+      cnpjInput.addEventListener('input', handleInput);
+    }
+
+
+ const cnpjInput1 = document.getElementById('cnpjreg')
+    if (cnpjInput1) {
+      cnpjInput1.addEventListener('input', handleInput);
+    }
+
     if (textRegistro && loginPage && registerPage) {
       textRegistro.addEventListener('click', () => {
         loginPage.style.transform = 'translateX(-100vw)';
@@ -89,10 +129,6 @@ export class LoginComponent implements OnInit {
 
   }
 
-  // fazerLogin() {
-  //   window.open('/senha', '_blank');
-
-  // }
 
   escreverTexto(): void {
     if (this.spanTexto) {
@@ -158,16 +194,26 @@ export class LoginComponent implements OnInit {
     }
 
   }
+  
+  removeNonNumericCharacters(value: string): string {
+    // Remove todos os caracteres que não são dígitos
+    return value.replace(/[.\-\/]/g, '');
+  }
 
   LoginUser() {
     const form = document.getElementById('formLogin') as HTMLFormElement;
     const cnpj = form.elements.namedItem('cnpj') as HTMLInputElement;
     const password = form.elements.namedItem('password') as HTMLInputElement;
 
+    const cnpjFormat = this.removeNonNumericCharacters(cnpj.value);
+    console.log(cnpjFormat);
+    
     const loginData = {
-      cnpj: cnpj.value,
+      cnpj: cnpjFormat,
       password: password.value
     };
+
+    
 
     console.log(loginData)
 
@@ -197,10 +243,14 @@ export class LoginComponent implements OnInit {
       return;
     }
 
-    const cnpj = form.elements.namedItem('cnpjreg') as HTMLInputElement | null;
+    const cnpj = form.elements.namedItem('cnpjreg') as HTMLInputElement;
     const email = form.elements.namedItem('email') as HTMLInputElement | null;
     const password = form.elements.namedItem('passwordreg') as HTMLInputElement | null;
     const reppassword = form.elements.namedItem('reppassword') as HTMLInputElement | null;
+
+    const cnpjFormat = this.removeNonNumericCharacters(cnpj.value);
+    console.log(cnpjFormat);
+
 
     // Valide os campos do formulário
     if (!cnpj || !cnpj.value) {
@@ -227,7 +277,7 @@ export class LoginComponent implements OnInit {
     }
 
     // Verifique se o CNPJ já existe
-    if (!await this.checkCNPJExists(cnpj.value)) {
+    if (!await this.checkCNPJExists(cnpjFormat)) {
       this.errorMessage = 'Erro ao verificar CNPJ. Por favor, tente novamente mais tarde.';
       return;
     }
@@ -235,16 +285,16 @@ export class LoginComponent implements OnInit {
     // Se todas as verificações passarem, limpe a mensagem de erro
     this.errorMessage = '';
 
-    if (await this.checkCNPJExists(cnpj.value)) {
+    if (await this.checkCNPJExists(cnpjFormat)) {
       // Fazendo requisição à API do BrasilAPI para obter informações da empresa pelo CNPJ
-      axios.get(`https://brasilapi.com.br/api/cnpj/v1/${cnpj.value}`)
+      axios.get(`https://brasilapi.com.br/api/cnpj/v1/${cnpjFormat}`)
         .then(response => {
           const dadosCNPJ = response.data;
 
           // Construindo os dados do usuário com base nos dados da empresa retornados pela API
           const userData = {
             name: dadosCNPJ.nome_fantasia,
-            cnpj: cnpj.value,
+            cnpj: cnpjFormat,
             telefone1: dadosCNPJ.ddd_telefone_1,
             telefone2: dadosCNPJ.ddd_telefone_2,
             email: email.value,

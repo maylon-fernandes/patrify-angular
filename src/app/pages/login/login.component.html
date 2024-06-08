@@ -6,11 +6,11 @@
             <form action="" id="formLogin" (submit)="LoginUser()">
                 <div class="form-group">
                     <label for="email">CNPJ:</label>
-                    <input type="text" name="cnpj" id="cnpj" class="input-login" required maxlength="14">
+                    <input type="text" name="cnpj" id="cnpj" class="input-login" required maxlength="18">
                 </div>
                 <div class="form-group">
                     <label for="password">Senha:</label>
-                    <input type="text" name="password" id="password" class="input-login" required>
+                    <input type="password" name="password" id="password" class="input-login" required>
                 </div>
                 <a id="forgotPassword" href="/senha">Esqueci a Senha</a>
                 <button type="submit">Entrar</button>
@@ -26,7 +26,7 @@
                 <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
                 <div class="form-group" id="cnpjBox">
                     <label for="cnpj">CNPJ:</label>
-                    <input type="text" name="cnpj" id="cnpjreg" class="input-login" required maxlength="14">
+                    <input type="text" name="cnpj" id="cnpjreg" class="input-login" required maxlength="18">
                 </div>
                 <div class="form-group">
                     <label for="email">Email Empresarial:</label>
