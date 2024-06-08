@@ -40,8 +40,15 @@
 
             <td class="px-6 py-4 whitespace-nowrap relative">
               <span *ngIf="!patrimonio.editMode" class="text-sm text-gray-900">{{ patrimonio.patr_tipo }}</span>
-              <input *ngIf="patrimonio.editMode" type="text" [(ngModel)]="patrimonio.patr_tipo" class="absolute top-0 left-0 px-6 py-4 text-sm text-gray-500 bg-transparent border-none w-full h-full" />
-            </td>
+              <select *ngIf="patrimonio.editMode" [(ngModel)]="patrimonio.patr_tipo" class="absolute top-0 left-0 px-6 py-4 text-sm text-gray-500 bg-transparent border-none w-full h-full z-10">
+                <option value="Tecnologia">Tecnologia</option>
+                <option value="Mobiliário">Mobiliário</option>
+                <option value="Produção">Produção</option>
+                <option value="Transporte">Transporte</option>
+                <option value="Logística">Logística</option>
+                <option value="Segurança">Segurança</option>
+                <option value="Labotorial">Labotorial</option>
+              </select>
 
             <td class="px-6 py-4 whitespace-nowrap relative">
               <span *ngIf="!patrimonio.editMode" class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full " [ngClass]="{
