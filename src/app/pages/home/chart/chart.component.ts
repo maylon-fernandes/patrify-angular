@@ -163,9 +163,6 @@ export class ChartComponent implements OnInit{
         borderWidth: 1,
         backgroundColor: [
           '#380664',
-          '#970086',
-          '#b60084',
-          '#ff7131',
           '#ff9e00'
         ],
       }]
