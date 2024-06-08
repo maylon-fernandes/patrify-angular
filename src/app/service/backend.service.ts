@@ -184,5 +184,17 @@ export class BackendService {
     );
   }
 
+  deletarPatrimonio(patrimonioID: string, token: string): Observable<any> {
+    const headers = new HttpHeaders({
+      'Authorization': `${token}`
+    });
+
+    const url = `${this.url}/patrimony/delete/${patrimonioID}`;
+    return this.http.delete(url, { headers }).pipe(
+      catchError(error => {
+        return throwError(error);
+      })
+    );
+  }
 
 }
