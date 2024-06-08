@@ -27,6 +27,4 @@ export class HomeComponent implements OnInit {
       }
     });
 
-    // Replace with your actual chart data (example)
-  
 }}
