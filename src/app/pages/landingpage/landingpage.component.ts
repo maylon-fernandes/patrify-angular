@@ -45,6 +45,17 @@ export class LandingpageComponent implements AfterViewInit {
       }
     })
 
+    gsap.from('.patternDot', {
+      scale: 0,
+      duration: 2,
+      ease: "elastic.out",
+      scrollTrigger: {
+        trigger: ".contentOne",
+        start: "Bottom 25%",
+        end: "Bottom Bottom",
+      }
+    })
+
     gsap.from("#outtext", {
       y: 100,
       opacity: 0,
