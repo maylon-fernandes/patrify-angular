@@ -71,6 +71,7 @@ export class ChartComponent implements OnInit{
                 const ativoInativo = patrimonio.patr_ativoinativo;
                 const compra = patrimonio.patr_dt_compr; 
                 const valorRaw = patrimonio.patr_valor;
+                const quantity = patrimonio.patr_quantidade;
                 let contagemAtivo = 0;
                 let valor: number = 0;
 
@@ -141,7 +142,7 @@ export class ChartComponent implements OnInit{
 
 
                 if(patrimonio.patr_ativoinativo == 'Ativo'){
-                  valorAcumulado += valor;
+                  valorAcumulado += (valor * quantity);
                   const compraExistente = dtcomprvalueativ.find(
                       compraItem => compraItem.comprativ === formattedDate
                     );
@@ -161,7 +162,7 @@ export class ChartComponent implements OnInit{
 
                   }else{
 
-                    naoativoacumulado += valor;
+                    naoativoacumulado += (valor * quantity);
                     dtcomprvaluenotativ.push({
                       valuenot: naoativoacumulado
                     })
@@ -179,8 +180,6 @@ export class ChartComponent implements OnInit{
               resultadoFinal.push(...ativoInativoContagemAtivo);
               resultadoFinal.push(...dtcomprvalueativ)              
               resultadoFinal.push(...dtcomprvaluenotativ)
-
-              console.log(resultadoFinal)
               resolve(resultadoFinal); // Resolve the Promise with the result
             } else {
               console.error('Erro ao recuperar patrimônios da API: ', response);
