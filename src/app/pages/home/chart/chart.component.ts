@@ -284,7 +284,7 @@ export class ChartComponent implements OnInit{
           
       },
       options: {
-       
+        
         plugins: {
           legend: {
             display: false // Hide legend (already set in your original code)

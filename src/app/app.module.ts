@@ -23,7 +23,7 @@ import { NotifierModule } from 'angular-notifier';
 import { ToastrModule } from 'ngx-toastr';
 import { RecsenhaComponent } from './recsenha/recsenha.component';
 import { ChartComponent } from './pages/home/chart/chart.component';
-
+import { CurrencyMaskModule } from "ng2-currency-mask";
 // import { AuthGuard } from './service/authguard.service';
 
 
@@ -52,7 +52,8 @@ import { ChartComponent } from './pages/home/chart/chart.component';
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    ReactiveFormsModule, 
+    ReactiveFormsModule,
+    CurrencyMaskModule,
     ToastrModule.forRoot(),
     RouterModule.forRoot([]),
   ],
