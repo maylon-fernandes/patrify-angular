@@ -85,7 +85,6 @@ export class FiltroComponent implements OnInit{
       condicao: conservacao
     };
   
-    console.log(this.selectedFilters)
     // Emite o evento com os dados do filtro
     this.dataReady.emit(this.selectedFilters);
   }

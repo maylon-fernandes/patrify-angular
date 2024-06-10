@@ -85,7 +85,6 @@ export class InventarioComponent implements OnInit {
       valor: patrimonio.patr_valor
     };
 
-    console.log(dadosPatrimonios)
     if (token) {
       if (patrimonioID) { 
         this.backendService.salvarEdicaoDoPatrimonio(dadosPatrimonios, patrimonioID, token)
@@ -110,7 +109,6 @@ export class InventarioComponent implements OnInit {
 
 
   deletarPatrimonio(patrimonio: any): void {
-    console.log(patrimonio);
     const token = localStorage.getItem('token');
     const patrimonioID = patrimonio.patr_id;
   
