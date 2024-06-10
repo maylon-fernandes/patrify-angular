@@ -56,6 +56,29 @@ export class LandingpageComponent implements AfterViewInit {
       }
     })
 
+    gsap.from('.patternLine', {
+      clipPath: "inset(0 0 0 100%)",
+      duration: 1,
+      ease: 'Power3.out',
+      scrollTrigger: {
+        trigger: ".contentOne",
+        start: "10% 25%",
+        end: "bottom bottom",
+      }
+    })
+
+    gsap.from('.patternLine2', {
+      clipPath: "inset(0 0 0 100%)",
+      duration: 1,
+      delay: 0.5,
+      ease: 'Power3.out',
+      scrollTrigger: {
+        trigger: ".contentOne",
+        start: "10% 25%",
+        end: "bottom bottom",
+      }
+    })
+
     gsap.from("#outtext", {
       y: 100,
       opacity: 0,
