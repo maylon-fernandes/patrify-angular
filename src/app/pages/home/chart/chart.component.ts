@@ -43,7 +43,6 @@ export class ChartComponent implements OnInit{
   filterfunction() {
     return new Promise((resolve, reject) => {
       this.token = localStorage.getItem('token');
-      console.log(this.filtros)
       if (this.token) {
         this.backendService.Filter(this.filtros, this.token).subscribe(
           response => {
@@ -59,7 +58,7 @@ export class ChartComponent implements OnInit{
               const contagemTipo: { contagem: number; tipo: any; }[] = []; // Array para contagem e tipo
               const ativoInativoContagemAtivo: { ativoinativo: any; contagemativ: number }[] = [];
               const dtcomprvalueativ: { comprativ: any; valueativ: number }[] = [];
-              const dtcomprvaluenotativ:  { valuenot: number }[] = [];
+              const dtcomprvaluenotativ:  { comprnotativ: any; valuenot: number }[] = [];
               
               let valorAcumulado = 0; // Valor acumulado inicializado a zero
               let naoativoacumulado= 0;
@@ -75,6 +74,8 @@ export class ChartComponent implements OnInit{
                 let contagemAtivo = 0;
                 let valor: number = 0;
 
+                const depreciacao = patrimonio.patr_depreciacao
+                
               
                 try {
                   valor = parseFloat(valorRaw);
@@ -140,38 +141,67 @@ export class ChartComponent implements OnInit{
                 });
 
 
+                
+                if (patrimonio.patr_ativoinativo == 'Ativo' && patrimonio.patr_depreciacao == 'Descartado') {
+                  
+                  valorAcumulado -= (valor * quantity);
 
-                if(patrimonio.patr_ativoinativo == 'Ativo'){
-                  valorAcumulado += (valor * quantity);
                   const compraExistente = dtcomprvalueativ.find(
-                      compraItem => compraItem.comprativ === formattedDate
-                    );
+                    compraItem => compraItem.comprativ === formattedDate
+                  );
 
-                    
-                    // Cria um novo objeto compra/valor se a combinação não existir
-                    if (!compraExistente) {
-                      dtcomprvalueativ.push({
-                        comprativ: formattedDate,
-                        valueativ:  valorAcumulado
-                      });
-                      
+
+                  // Cria um novo objeto compra/valor se a combinação não existir
+                  if (!compraExistente) {
+                    dtcomprvalueativ.push({
+                      comprativ: formattedDate,
+                      valueativ: valorAcumulado
+                    });
+
+                  } else {
+                    // Atualiza os valores da compra encontrada (novo ou existente)
+                    compraExistente.valueativ = valorAcumulado;
+                  }
+
+                } else if(patrimonio.patr_ativoinativo == 'Ativo') {
+                  
+                  valorAcumulado += (valor * quantity);
+                
+
+                  const compraExistente = dtcomprvalueativ.find(
+                    compraItem => compraItem.comprativ === formattedDate
+                  );
+
+
+                  // Cria um novo objeto compra/valor se a combinação não existir
+                  if (!compraExistente) {
+                    dtcomprvalueativ.push({
+                      comprativ: formattedDate,
+                      valueativ: valorAcumulado
+                    });
                     } else {
                       // Atualiza os valores da compra encontrada (novo ou existente)
                       compraExistente.valueativ = valorAcumulado;
-                    }
+                      }
 
-                  }else{
+                      naoativoacumulado += (valor * quantity);
 
-                    naoativoacumulado += (valor * quantity);
-                    dtcomprvaluenotativ.push({
-                      valuenot: naoativoacumulado
-                    })
-                   
+                  dtcomprvaluenotativ.push({
+                    comprnotativ: formattedDate,
+                    valuenot: -naoativoacumulado
+                  })
+                      
+                }else if(patrimonio.patr_ativoinativo == 'Não ativo'){
 
-                  }
+                  naoativoacumulado += (valor * quantity);
 
-                  
-                 
+                  dtcomprvaluenotativ.push({
+                    comprnotativ: formattedDate,
+                    valuenot: -naoativoacumulado
+                  })
+                }
+                
+
               
               });
 
@@ -180,6 +210,7 @@ export class ChartComponent implements OnInit{
               resultadoFinal.push(...ativoInativoContagemAtivo);
               resultadoFinal.push(...dtcomprvalueativ)              
               resultadoFinal.push(...dtcomprvaluenotativ)
+              
               resolve(resultadoFinal); // Resolve the Promise with the result
             } else {
               console.error('Erro ao recuperar patrimônios da API: ', response);
@@ -220,6 +251,7 @@ export class ChartComponent implements OnInit{
     const data = filteredDatavalornotactive.map((tipo: { compr: any; }) => tipo.compr);
     const valor = filteredDatavalornotactive.map((tipo: { valuenot: any; }) => tipo.valuenot);
 
+    
 
     this.lastValue = valorativ[valorativ.length - 1];
     this.patrimoniostotal = numberativ[0]+numberativ[1];
@@ -277,8 +309,6 @@ export class ChartComponent implements OnInit{
         borderColor: '#380664',
         tension: 0.3,
         pointStyle: 'rectRot',
-        backgroundColor: '#38066467',
-        fill: true
       }],
           
       },
