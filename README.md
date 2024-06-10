@@ -15,7 +15,7 @@
 - **Cadastro de Bens e Ativos:** Permite adicionar, editar e remover bens e ativos.
 - **Visualização de Informações:** Exibe detalhes sobre cada bem ou ativo cadastrado.
 - **Descarte:** Função de descarte inteligente baseado no tipo do ativo que será desativado.
-- **Notificações:** Envia alertas sobre manutenções, vencimentos de seguros, entre outros.
+- **Gráficos:** Gráficos que são atualizados em tempo real baseado no filtro definido.
 
 ## Tecnologias Utilizadas
 
