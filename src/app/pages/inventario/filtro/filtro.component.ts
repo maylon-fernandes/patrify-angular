@@ -58,6 +58,9 @@ export class FiltroComponent implements OnInit{
 
   @Output() dataReady = new EventEmitter<any>();
 
+  
+
+
   onFilterChange() {
     // Verifica se o filtro de nome é "Recente"
     const name = this.nameFilter === 'Recente' ? '' : this.nameFilter;
