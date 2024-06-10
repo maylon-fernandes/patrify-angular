@@ -142,7 +142,7 @@ export class ChartComponent implements OnInit{
 
 
                 
-                if (patrimonio.patr_ativoinativo == 'Ativo' && patrimonio.patr_depreciacao == 'Descartado') {
+                if (patrimonio.patr_depreciacao == 'Descartado') {
                   
                   valorAcumulado -= (valor * quantity);
 
@@ -161,7 +161,15 @@ export class ChartComponent implements OnInit{
                   } else {
                     // Atualiza os valores da compra encontrada (novo ou existente)
                     compraExistente.valueativ = valorAcumulado;
-                  }
+                    }
+
+
+                    naoativoacumulado += (valor * quantity);
+          
+                      dtcomprvaluenotativ.push({
+                        comprnotativ: formattedDate,
+                        valuenot: -naoativoacumulado
+                      })
 
                 } else if(patrimonio.patr_ativoinativo == 'Ativo') {
                   
@@ -184,23 +192,35 @@ export class ChartComponent implements OnInit{
                       compraExistente.valueativ = valorAcumulado;
                       }
 
-                      naoativoacumulado += (valor * quantity);
-
-                  dtcomprvaluenotativ.push({
-                    comprnotativ: formattedDate,
-                    valuenot: -naoativoacumulado
-                  })
                       
                 }else if(patrimonio.patr_ativoinativo == 'Não ativo'){
 
-                  naoativoacumulado += (valor * quantity);
+                  valorAcumulado -= (valor * quantity);
+                  
+                  const compraExistente = dtcomprvalueativ.find(
+                    compraItem => compraItem.comprativ === formattedDate
+                  );
 
-                  dtcomprvaluenotativ.push({
-                    comprnotativ: formattedDate,
-                    valuenot: -naoativoacumulado
-                  })
-                }
-                
+                  
+                  // Cria um novo objeto compra/valor se a combinação não existir
+                  if (!compraExistente) {
+                    dtcomprvalueativ.push({
+                      comprativ: formattedDate,
+                      valueativ: valorAcumulado
+                      });
+                      
+                      } else {
+                        // Atualiza os valores da compra encontrada (novo ou existente)
+                        compraExistente.valueativ = valorAcumulado;
+                        }
+                        
+                        naoativoacumulado += (valor * quantity);
+      
+                        dtcomprvaluenotativ.push({
+                          comprnotativ: formattedDate,
+                          valuenot: -naoativoacumulado
+                        })
+                      }
 
               
               });
