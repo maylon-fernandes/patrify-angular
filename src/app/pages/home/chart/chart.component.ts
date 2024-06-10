@@ -180,8 +180,6 @@ export class ChartComponent implements OnInit{
               resultadoFinal.push(...ativoInativoContagemAtivo);
               resultadoFinal.push(...dtcomprvalueativ)              
               resultadoFinal.push(...dtcomprvaluenotativ)
-
-              console.log(resultadoFinal)
               resolve(resultadoFinal); // Resolve the Promise with the result
             } else {
               console.error('Erro ao recuperar patrimônios da API: ', response);
