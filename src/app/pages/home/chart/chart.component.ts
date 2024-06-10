@@ -268,9 +268,9 @@ export class ChartComponent implements OnInit{
   
   const Chart3  = new Chart("valuechart", {
     type: 'line',
+    
     data: {
       labels: dataativ,
-      
       datasets: [{
         label: '',
         data: valorativ,
@@ -278,22 +278,23 @@ export class ChartComponent implements OnInit{
         borderColor: '#380664',
         tension: 0.3,
         pointStyle: 'rectRot',
+        backgroundColor: '#38066467',
+        fill: true
       }],
+          
       },
       options: {
+       
         plugins: {
           legend: {
-            display: false,
+            display: false // Hide legend (already set in your original code)
           }
         }
-      },
-      
-    
-  });
+      }
+    });
 
   }
-
-  }
+}
 
   
 
