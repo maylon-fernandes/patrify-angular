@@ -85,6 +85,7 @@ export class InventarioComponent implements OnInit {
       valor: patrimonio.patr_valor
     };
 
+    console.log(dadosPatrimonios)
     if (token) {
       if (patrimonioID) { 
         this.backendService.salvarEdicaoDoPatrimonio(dadosPatrimonios, patrimonioID, token)
@@ -105,6 +106,8 @@ export class InventarioComponent implements OnInit {
       console.error('Token não encontrado!');
     }
   }
+
+
 
   deletarPatrimonio(patrimonio: any): void {
     console.log(patrimonio);

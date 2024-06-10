@@ -31,7 +31,7 @@ export class FiltroComponent implements OnInit{
   valor: number = 0;
   quantidade: number = 0;
   fornecedor: string = '';
-  dt_compra: string = ''; // Assuming date format as string
+  dt_compra: string = ''; 
   local: string = '';
   ativoInativo: string = '';
   descricao: string = '';
@@ -39,7 +39,7 @@ export class FiltroComponent implements OnInit{
   tipo: string = '';
   file: File | null = null;
   id: number = 0;
-  patrimonios: any[] = []; // Array to store all patrimonios
+  patrimonios: any[] = []; 
   imageUrl: string | ArrayBuffer | null | undefined= null;
 
   errorMessage: string | null = null;
@@ -82,6 +82,7 @@ export class FiltroComponent implements OnInit{
       condicao: conservacao
     };
   
+    console.log(this.selectedFilters)
     // Emite o evento com os dados do filtro
     this.dataReady.emit(this.selectedFilters);
   }
@@ -94,20 +95,6 @@ export class FiltroComponent implements OnInit{
   alternarAddPatrimonio() {
     this.mostrarAddPatrimonio = !this.mostrarAddPatrimonio;
   }
-
-  // onFileSelected(event: Event): void {
-  //   const inputElement = event.target as HTMLInputElement;
-  //   if (inputElement.files && inputElement.files.length > 0) {
-  //     this.file = inputElement.files[0];
-      
-  //     const reader = new FileReader();
-  //     reader.onload = (e) => {
-  //       this.imageUrl = e.target?.result;
-  //     };
-  //     reader.readAsDataURL(this.file);
-  //   }
-  // }
-
 
   onFileSelected(event: Event): void {
     const inputElement = event.target as HTMLInputElement;
@@ -158,7 +145,9 @@ export class FiltroComponent implements OnInit{
         formData.append('file', this.file);
         // console.log('Image appended to FormData:', this.file);
       }
-  
+      
+      console.log(patrimonioData);
+      
       // Send POST request using HttpClient with FormData
       this.backendService.cadastrarPatrimonio(patrimonioData, this.token)
         .pipe(
