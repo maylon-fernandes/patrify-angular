@@ -2,7 +2,8 @@ body {
     display: flex; /* Torna o corpo do documento um contêiner flexível */
     justify-content: center; /* Centraliza horizontalmente */
     align-items: flex-start; /* Alinha os itens ao início do eixo transversal (vertical) */
-    min-height: 100vh; /* Garante que o corpo da página tenha pelo menos 100% da altura da janela de visualização */
+    min-height: 100vh; 
+    background-color: #b9b9b9;/* Garante que o corpo da página tenha pelo menos 100% da altura da janela de visualização */
 }
 
 #titulo-header {

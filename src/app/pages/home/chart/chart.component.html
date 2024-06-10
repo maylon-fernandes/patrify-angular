@@ -12,18 +12,24 @@
         </div>
     </div>
     <div class="graf3">
-        <h2>Gráfico numero de Patrimônios ativos e inativos</h2>
+        <h2>Gráfico do valor ao longo do tempo de patrimonios ativos </h2>
         <div class="canvas-container">
-            <canvas id="activechart"></canvas>
+            <canvas id="valuechart"></canvas>
         </div>
     </div>
     <div class="info1">
-        <h1></h1>
+        <h1>Número de Patrimônios</h1>
+        <p> patrimonio total: {{this.patrimoniostotal}}</p>
+        <p>Patrimônio Ativo: {{this.patrimoniosativos}}</p>
+        
+        <p>Patrimônio Não Ativo: {{this.patrimoniosnaoativos}}</p>
     </div>
     <div class="info2">
-        <h1></h1>
+        <h1>Valor total de patrimônios ativo</h1>
+        <p>{{this.lastValue}}</p>
     </div>
     <div class="info3">
-        <h1></h1>
+        <h1>Valor total de patrimonios não ativos</h1>
+        <p>{{this.lastvaluenotactive}}</p>
     </div>
 </div>
