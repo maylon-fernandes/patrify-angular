@@ -6,7 +6,7 @@ Chart.register(...registerables)
 @Component({
   selector: 'app-chart',
   templateUrl: './chart.component.html',
-  styleUrls: ['./chart.component.css']
+  styleUrls: ['./chart.component.scss']
 })
 export class ChartComponent implements OnInit{
   patrimonios: any[] = [];
@@ -308,8 +308,8 @@ export class ChartComponent implements OnInit{
         data: numberativ,
         borderWidth: 1,
         backgroundColor: [
-          '#380664',
-          '#ff9e00'
+          '#09C600',
+          '#C60000'
         ],
       }]
     },
