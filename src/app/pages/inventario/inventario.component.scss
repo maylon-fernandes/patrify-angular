@@ -22,7 +22,6 @@
 }
 
 
-
 @media screen and (max-width: 1500px) {
     filtro{
         width: 95%;
@@ -46,3 +45,6 @@
   }
 
 
+#codigoSerie {
+    text-wrap: nowrap; 
+}
