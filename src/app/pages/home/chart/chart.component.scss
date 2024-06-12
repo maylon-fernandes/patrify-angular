@@ -82,6 +82,22 @@
     grid-row: 1/2;
     background-color: white;
     border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    h1 {
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    p {
+      font-size: 50px;
+      font-weight: 100;
+      color: #7018b8;
+    }
   }
 
   .info2 {
