@@ -4,6 +4,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { BackendService } from 'src/app/service/backend.service';
 import { b64toBlob } from 'src/app/utils/utils';
 import { HttpErrorResponse } from '@angular/common/http';
+import { ToastrService } from 'ngx-toastr';
 
 import { catchError, tap, throwError } from 'rxjs';
 
@@ -18,7 +19,7 @@ export class InventarioComponent implements OnInit {
   token: string | null = null;
   @Input() data: any;
 
-  constructor(private http: HttpClient, private backendService: BackendService) { }
+  constructor(private http: HttpClient, private backendService: BackendService, private toastr: ToastrService) { }
 
   onDataReady(filteredData: any) {
     this.filtros = filteredData;
@@ -90,8 +91,14 @@ export class InventarioComponent implements OnInit {
         this.backendService.salvarEdicaoDoPatrimonio(dadosPatrimonios, patrimonioID, token)
           .pipe(
             tap((response) => {
-              patrimonio.editMode = false;
-              window.location.reload();
+              // console.log('Imagem enviada com sucesso:', response);
+                patrimonio.editMode = false;
+                this.toastr.success( 'Patrimonio editado com sucesso', 'Sucesso',);
+              
+              setTimeout(() => {
+                window.location.reload();
+              }, 2000);
+              
             }),
             catchError(error => {
               console.error('Erro ao atualizar o patrimônio:', error);
