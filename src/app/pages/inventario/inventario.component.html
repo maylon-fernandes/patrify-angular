@@ -8,6 +8,7 @@
         <thead class="bg-gray-50">
           <tr>
             <th scope="col" class="px-6 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Imagem</th>
+            <th scope="col" class="px-6 py-3 text-left font-bold text-gray-500 uppercase tracking-wider" id="codigoSerie">Código de série</th>
             <th scope="col" class="px-6 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Nome</th>
             <th scope="col" class="px-6 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Categoria</th>
             <th scope="col" class="px-6 py-3 text-left font-bold text-gray-500 uppercase tracking-wider">Status</th>
@@ -35,8 +36,13 @@
               </div>
             </td>
 
+            <td class="px-6 py-4 whitespace-nowrap">
+              <span class="text-sm text-gray-900">{{ patrimonio.patr_codigoserie }}</span>
+            </td>
+
             <td class="px-6 py-4 whitespace-nowrap relative">
-              <span *ngIf="!patrimonio.editMode" class="text-sm text-gray-900">{{ patrimonio.patr_name }}</span>
+              <span *ngIf="!patrimonio.editMode" class="text-sm text-gray-900">{{ patrimonio.patr_name }}</span><br>
+              
               <input *ngIf="patrimonio.editMode" type="text" [(ngModel)]="patrimonio.patr_name" class="absolute top-0 left-0 px-6 py-4 text-sm text-gray-500 bg-transparent border-none w-full h-full" />
             </td>
 
