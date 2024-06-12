@@ -288,11 +288,11 @@ export class ChartComponent implements OnInit{
         data: tiposnumber,
         borderWidth: 1,
         backgroundColor: [
-          '#380664',
-          '#970086',
-          '#b60084',
-          '#ff7131',
-          '#ff9e00'
+          '#5f2756',
+          '#a83a55',
+          '#e14b56',
+          '#f76f55',
+          '#f8a255'
         ],
       }]
     },
@@ -308,8 +308,8 @@ export class ChartComponent implements OnInit{
         data: numberativ,
         borderWidth: 1,
         backgroundColor: [
-          '#09C600',
-          '#C60000'
+          '#ff9900',
+          '#4f4f70'
         ],
       }]
     },
