@@ -1,4 +1,7 @@
 /* app.component.css */
+body{
+    width: 100vw;
+}
 
 .overlay {
     position: fixed;

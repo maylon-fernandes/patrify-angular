@@ -21,6 +21,30 @@
     max-height: 100%;
 }
 
+
+@media screen and (max-width: 1500px) {
+    filtro{
+        width: 95%;
+    }
+  }
+
+
+  
+@media screen and (max-width: 1350px) {
+    filtro{
+        width: 95vw;
+    }
+  }
+
+
+    
+@media screen and (max-width: 650px) {
+    filtro{
+        width: 83vw;
+    }
+  }
+
+
 #codigoSerie {
     text-wrap: nowrap; 
 }

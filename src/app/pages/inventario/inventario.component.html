@@ -17,8 +17,7 @@
               Localização</th>
             <th scope="col" class="px-6 py-3 text-left font-bold text-gray-500 uppercase tracking-wider" id="valor">
               Preço</th>
-            <th scope="col" class="px-6 py-3 text-left font-bold text-gray-500 uppercase tracking-wider" id="valor">
-              Quantidade</th>
+
             <th scope="col" class="px-6 py-3 text-left font-bold text-gray-500 uppercase tracking-wider" id="data">Data
             </th>
             <th scope="col" class="px-6 py-3 text-left font-bold text-gray-500 uppercase tracking-wider"
@@ -87,14 +86,6 @@
               <input *ngIf="patrimonio.editMode" type="text" [(ngModel)]="patrimonio.patr_valor"
                 class="absolute top-0 left-0 px-6 py-4 text-sm text-gray-500 bg-transparent border-none w-full h-full" />
             </td>
-
-            <td class="relative">
-              <span *ngIf="!patrimonio.editMode" class="px-6 py-4 whitespace-nowrap text-sm text-gray-500" id="valor">{{
-                patrimonio.patr_quantidade }}</span>
-              <input *ngIf="patrimonio.editMode" type="text" [(ngModel)]="patrimonio.patr_quantidade"
-                class="absolute top-0 left-0 px-6 py-4 text-sm text-gray-500 bg-transparent border-none w-full h-full" />
-            </td>
-
             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 relative" id="data">
               <span *ngIf="!patrimonio.editMode" class="text-sm text-gray-900">
                 {{patrimonio.date}}
