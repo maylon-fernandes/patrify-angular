@@ -408,6 +408,15 @@ input[type=radio] {
 	font-weight: bolder;
 }
 
+#eyeIcon {
+	width: 25px;
+	color: #fff;
+	fill: white;
+	position: relative;
+	top: -60px;
+	left: 90%;
+	cursor: pointer;
+}
 
 @media print {
 	input[type=radio] {
