@@ -23,29 +23,26 @@ export class InventarioComponent implements OnInit {
 
   onDataReady(filteredData: any) {
     this.filtros = filteredData;
-
     this.token = localStorage.getItem('token');
-
+  
     if (this.token) {
       this.backendService.Filter(this.filtros, this.token).subscribe(
         response => {
-
           this.patrimonios = response.patrimonios.map((patrimonio: any) => {
             const dateString = patrimonio.patr_dt_compr;
-
             const dateParts = dateString.split('-');
             const year = parseInt(dateParts[0], 10);
             const month = parseInt(dateParts[1], 10) - 1;
             const day = parseInt(dateParts[2], 10);
-
+  
             const dateObject = new Date(year, month, day);
-            const formattedDate = dateObject.toLocaleDateString('pt-BR');
-
+            const formattedDateISO = dateObject.toISOString().substring(0, 10); // Formato ISO para input date
+  
             const imagem = patrimonio.imagem;
-
+  
             return {
               ...patrimonio,
-              date: formattedDate,
+              date: formattedDateISO,
               imageSrc: imagem
             };
           });
@@ -55,9 +52,8 @@ export class InventarioComponent implements OnInit {
         }
       );
     }
-
   }
-
+  
   ngOnInit(): void {
 
   }

@@ -86,13 +86,15 @@
               <input *ngIf="patrimonio.editMode" type="text" [(ngModel)]="patrimonio.patr_valor"
                 class="absolute top-0 left-0 px-6 py-4 text-sm text-gray-500 bg-transparent border-none w-full h-full" />
             </td>
+            
             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 relative" id="data">
               <span *ngIf="!patrimonio.editMode" class="text-sm text-gray-900">
-                {{patrimonio.date}}
+                {{ patrimonio.date | date:'dd/MM/yyyy' }}
               </span>
               <input *ngIf="patrimonio.editMode" type="date" [(ngModel)]="patrimonio.date"
                 class="absolute top-0 left-0 px-6 py-4 text-sm text-gray-500 bg-transparent border-none w-full h-full" />
             </td>
+            
 
             <td class="px-6 py-4 whitespace-nowrap relative" id="conservacao">
               <!-- Elemento de exibição normal -->
