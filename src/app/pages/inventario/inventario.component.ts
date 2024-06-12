@@ -91,6 +91,7 @@ export class InventarioComponent implements OnInit {
           .pipe(
             tap((response) => {
               patrimonio.editMode = false;
+              window.location.reload();
             }),
             catchError(error => {
               console.error('Erro ao atualizar o patrimônio:', error);
