@@ -56,6 +56,7 @@ export class InventarioComponent implements OnInit {
   
   ngOnInit(): void {
 
+    const btnAction = document.getElementById('btnActions');
   }
 
   // GUI EDIT
