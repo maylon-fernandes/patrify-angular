@@ -26,6 +26,7 @@ export class ChartComponent implements OnInit{
   patrimoniosativos: any;
   patrimoniosnaoativos: any;
   lastvaluenotactive: any;
+  total:number = 0;
 
   constructor(private backendService: BackendService) {}
 
@@ -271,7 +272,13 @@ export class ChartComponent implements OnInit{
     const data = filteredDatavalornotactive.map((tipo: { compr: any; }) => tipo.compr);
     const valor = filteredDatavalornotactive.map((tipo: { valuenot: any; }) => tipo.valuenot);
 
+    for(let i = 0;i < numberativ.length; i++){
+      if(numberativ[i] > 0){
+        this.total += numberativ[i];
+      }
+    }
     
+    console.log(this.total)
 
     this.lastValue = valorativ[valorativ.length - 1];
     this.patrimoniostotal = numberativ[0]+numberativ[1];
