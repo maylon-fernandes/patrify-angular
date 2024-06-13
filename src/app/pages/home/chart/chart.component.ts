@@ -27,6 +27,8 @@ export class ChartComponent implements OnInit{
   patrimoniosnaoativos: any;
   lastvaluenotactive: any;
   total:number = 0;
+  totalreais: string = '';
+  totallostreais: string = '';
 
   constructor(private backendService: BackendService) {}
 
@@ -280,11 +282,19 @@ export class ChartComponent implements OnInit{
     
     console.log(this.total)
 
+
+    function formatarValorEmReais(valor: number): string {
+      const valorFormatado = valor.toFixed(2); // Arredonda para duas casas decimais e converte para string
+      return `R$ ${valorFormatado.replace('.', ',')}`; // Substitui o ponto por vírgula para a formatação de Reais
+  }
+
     this.lastValue = valorativ[valorativ.length - 1];
+    this.totalreais = formatarValorEmReais(this.lastValue)
     this.patrimoniostotal = numberativ[0]+numberativ[1];
     this.patrimoniosativos = numberativ[1];
     this.patrimoniosnaoativos = numberativ[0];
     this.lastvaluenotactive = valor[valor.length-1]
+    this.totallostreais = formatarValorEmReais(this.lastvaluenotactive)
 
    const myChart = new Chart("typechart", {
     type: 'doughnut',
