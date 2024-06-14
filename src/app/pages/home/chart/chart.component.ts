@@ -147,7 +147,7 @@ export class ChartComponent implements OnInit{
                 
                 if (patrimonio.patr_depreciacao == 'Descartado') {
                   
-                  valorAcumulado -= (valor * quantity);
+                  valorAcumulado -= valor ;
 
                   const compraExistente = dtcomprvalueativ.find(
                     compraItem => compraItem.comprativ === formattedDate
@@ -167,7 +167,7 @@ export class ChartComponent implements OnInit{
                     }
 
 
-                    naoativoacumulado += (valor * quantity);
+                    naoativoacumulado += valor ;
           
                       dtcomprvaluenotativ.push({
                         comprnotativ: formattedDate,
@@ -176,7 +176,7 @@ export class ChartComponent implements OnInit{
 
                 } else if(patrimonio.patr_ativoinativo == 'Ativo') {
                   
-                  valorAcumulado += (valor * quantity);
+                  valorAcumulado += valor ;
                 
 
                   const compraExistente = dtcomprvalueativ.find(
@@ -198,7 +198,7 @@ export class ChartComponent implements OnInit{
                       
                 }else if(patrimonio.patr_ativoinativo == 'Não ativo'){
 
-                  valorAcumulado -= (valor * quantity);
+                  valorAcumulado -= valor;
                   
                   const compraExistente = dtcomprvalueativ.find(
                     compraItem => compraItem.comprativ === formattedDate
@@ -217,7 +217,7 @@ export class ChartComponent implements OnInit{
                         compraExistente.valueativ = valorAcumulado;
                         }
                         
-                        naoativoacumulado += (valor * quantity);
+                        naoativoacumulado += valor;
       
                         dtcomprvaluenotativ.push({
                           comprnotativ: formattedDate,
