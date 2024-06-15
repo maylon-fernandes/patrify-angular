@@ -62,8 +62,9 @@ export class ChartComponent implements OnInit{
               const ativoInativoContagemAtivo: { ativoinativo: any; contagemativ: number }[] = [];
               const dtcomprvalueativ: { comprativ: any; valueativ: number }[] = [];
               const dtcomprvaluenotativ:  { comprnotativ: any; valuenot: number }[] = [];
-              
-              let valorAcumulado = 0; // Valor acumulado inicializado a zero
+             
+
+              let valorAcumulado = 0;
               let naoativoacumulado= 0;
               
               const resultadoFinal = [];
@@ -233,7 +234,7 @@ export class ChartComponent implements OnInit{
               resultadoFinal.push(...ativoInativoContagemAtivo);
               resultadoFinal.push(...dtcomprvalueativ)              
               resultadoFinal.push(...dtcomprvaluenotativ)
-              
+              console.log(resultadoFinal)
               resolve(resultadoFinal); // Resolve the Promise with the result
             } else {
               console.error('Erro ao recuperar patrimônios da API: ', response);
@@ -252,105 +253,138 @@ export class ChartComponent implements OnInit{
   
 
 
-
-  renderChart(tipospatr: any){
-
-    const filteredDataativ = tipospatr.filter((tipo: { ativoinativo: any; }) => tipo.ativoinativo);
-    const filteredDatatipo = tipospatr.filter((tipo: { tipo: any; }) => tipo.tipo);
-    const filteredDatavalor = tipospatr.filter((tipo: { comprativ: any; }) => tipo.comprativ);
-    
-    const filteredDatavalornotactive = tipospatr.filter((tipo: { valuenot: any; }) => tipo.valuenot);
-    
-
-    const labels = filteredDatatipo.map((tipo: { tipo: any; }) => tipo.tipo);
-    const tiposnumber = filteredDatatipo.map((tipo: { contagem: any; }) => tipo.contagem);
-
-    const ativ = filteredDataativ.map((tipo: { ativoinativo: any; }) => tipo.ativoinativo);
-    const numberativ = filteredDataativ.map((tipo: { contagemativ: any; }) => tipo.contagemativ);
-
-    const dataativ = filteredDatavalor.map((tipo: { comprativ: any; }) => tipo.comprativ);
-    const valorativ = filteredDatavalor.map((tipo: { valueativ: any; }) => tipo.valueativ);
-
-    const data = filteredDatavalornotactive.map((tipo: { compr: any; }) => tipo.compr);
-    const valor = filteredDatavalornotactive.map((tipo: { valuenot: any; }) => tipo.valuenot);
-
-    for(let i = 0;i < numberativ.length; i++){
-      if(numberativ[i] > 0){
-        this.total += numberativ[i];
-      }
+  renderChart(tipospatr: any) {
+    // Filtros de dados
+    const filteredDataativ = tipospatr.filter((tipo: { ativoinativo: any }) => tipo.ativoinativo);
+    const filteredDatatipo = tipospatr.filter((tipo: { tipo: any }) => tipo.tipo);
+    const filteredDatavalor = tipospatr.filter((tipo: { comprativ: any }) => tipo.comprativ);
+    const filteredDatavalornotactive = tipospatr.filter((tipo: { valuenot: any }) => tipo.valuenot);
+  
+    // Arrays de dados
+    const labels = filteredDatatipo.map((tipo: { tipo: any }) => tipo.tipo);
+    const tiposnumber = filteredDatatipo.map((tipo: { contagem: any }) => tipo.contagem);
+  
+    const ativ = filteredDataativ.map((tipo: { ativoinativo: any }) => tipo.ativoinativo);
+    const numberativ = filteredDataativ.map((tipo: { contagemativ: any }) => tipo.contagemativ);
+  
+    const dataativ = filteredDatavalor.map((tipo: { comprativ: any }) => tipo.comprativ);
+    const valorativ = filteredDatavalor.map((tipo: { valueativ: any }) => tipo.valueativ);
+  
+    const data = filteredDatavalornotactive.map((tipo: { compr: any }) => tipo.compr);
+    const valor = filteredDatavalornotactive.map((tipo: { valuenot: any }) => tipo.valuenot);
+  
+    // Cálculo do patrimônio total
+    let patrimoniostotal = 0;
+    if (numberativ.length > 0) {
+      patrimoniostotal = (numberativ[0] || 0) + (numberativ[1] || 0);
     }
-    
-    console.log(this.total)
-
-
-    function formatarValorEmReais(valor: number): string {
+  
+    // Cálculo dos patrimônios ativos e não ativos
+    const patrimoniosativos = numberativ.length > 1 ? numberativ[1] || 0 : 0;
+    const patrimoniosnaoativos = numberativ.length > 0 ? numberativ[0] || 0 : 0;
+  
+    // Cálculo do último valor não ativo
+    let lastvaluenotactive = 0;
+    if (valor.length > 0) {
+      lastvaluenotactive = valor[valor.length - 1] || 0;
+    }
+  
+    // Função para formatar valor em Reais
+    function formatarValorEmReais(valor?: number): string {
+      if (valor === undefined || valor === null) {
+        valor = 0;
+      }
+      const valorFormatado = valor.toFixed(2); // Arredonda para duas casas decimais e converte para string
+      return `R$ ${valorFormatado.replace('.', ',')}`; // Substitui o ponto por vírgula para a formatação de Reais
+    }
+  
+    function formatarValorEmReaistotal(valor?: number): string {
+      if (valor === undefined || valor === null) {
+          valor = 0;
+      }
+  
+      // Garantir que o valor não seja negativo
+      valor = Math.max(valor, 0);
+  
       const valorFormatado = valor.toFixed(2); // Arredonda para duas casas decimais e converte para string
       return `R$ ${valorFormatado.replace('.', ',')}`; // Substitui o ponto por vírgula para a formatação de Reais
   }
-
-    this.lastValue = valorativ[valorativ.length - 1];
-    this.totalreais = formatarValorEmReais(this.lastValue)
-    this.patrimoniostotal = numberativ[0]+numberativ[1];
-    this.patrimoniosativos = numberativ[1];
-    this.patrimoniosnaoativos = numberativ[0];
-    this.lastvaluenotactive = valor[valor.length-1]
-    this.totallostreais = formatarValorEmReais(this.lastvaluenotactive)
-
-   const myChart = new Chart("typechart", {
-    type: 'doughnut',
-    data: {
-      labels: labels,
-      datasets: [{
-        label: '',
-        data: tiposnumber,
-        borderWidth: 1,
-        backgroundColor: [
-          '#5f2756',
-          '#a83a55',
-          '#e14b56',
-          '#f76f55',
-          '#f8a255'
-        ],
-      }]
-    },
-    
-  });
-
-  const Chart2  = new Chart("activechart", {
-    type: 'doughnut',
-    data: {
-      labels: ativ,
-      datasets: [{
-        label: '',
-        data: numberativ,
-        borderWidth: 1,
-        backgroundColor: [
-          '#ff9900',
-          '#4f4f70'
-        ],
-      }]
-    },
-    
-  });
-
   
-  const Chart3  = new Chart("valuechart", {
-    type: 'line',
-    
-    data: {
-      labels: dataativ,
-      datasets: [{
-        label: '',
-        data: valorativ,
-        borderWidth: 1,  
-        borderColor: '#380664',
-        tension: 0.3,
-        pointStyle: 'rectRot',
-      }],
-          
+
+    // Atribuição de valores formatados
+    const lastValueFormatted = formatarValorEmReaistotal(valorativ[valorativ.length - 1]);
+    const totallostreaisFormatted = formatarValorEmReais(lastvaluenotactive);
+  
+    // Atualização das propriedades da classe
+    this.patrimoniostotal = patrimoniostotal;
+    this.patrimoniosativos = patrimoniosativos;
+    this.patrimoniosnaoativos = patrimoniosnaoativos;
+    this.totalreais = lastValueFormatted;
+    this.totallostreais = totallostreaisFormatted;
+  
+    // Criação dos gráficos usando Chart.js
+    const myChart = new Chart("typechart", {
+      type: 'doughnut',
+      data: {
+        labels: labels,
+        datasets: [{
+          label: '',
+          data: tiposnumber,
+          borderWidth: 1,
+          backgroundColor: [
+            '#5f2756',
+            '#a83a55',
+            '#e14b56',
+            '#f76f55',
+            '#f8a255'
+          ],
+        }]
       },
       options: {
-        
+        plugins: {
+          tooltip: {
+            callbacks: {
+              label: function (tooltipItem) {
+                let label = tooltipItem.label || '';
+                let value = tooltipItem.raw || 0;
+                return `${label}: ${value.toLocaleString()}`;
+              }
+            }
+          }
+        }
+      }
+    });
+  
+    const Chart2 = new Chart("activechart", {
+      type: 'doughnut',
+      data: {
+        labels: ativ,
+        datasets: [{
+          label: '',
+          data: numberativ,
+          borderWidth: 1,
+          backgroundColor: [
+            '#ff9900',
+            '#4f4f70'
+          ],
+        }]
+      },
+    });
+  
+    const Chart3 = new Chart("valuechart", {
+      type: 'line',
+      data: {
+        labels: dataativ,
+        datasets: [{
+          label: '',
+          data: valorativ,
+          borderWidth: 1,
+          borderColor: '#380664',
+          tension: 0.3,
+          pointStyle: 'rectRot',
+        }],
+      },
+      options: {
         plugins: {
           legend: {
             display: false // Hide legend (already set in your original code)
@@ -358,10 +392,5 @@ export class ChartComponent implements OnInit{
         }
       }
     });
-
   }
-}
-
-  
-
-
+}  

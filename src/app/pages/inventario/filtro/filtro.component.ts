@@ -204,7 +204,6 @@ export class FiltroComponent implements OnInit{
     const data = {
       name: this.name,
       valor: this.valor,
-      quantidade: this.quantidade,
       dt_compra: this.dt_compra,
       local: this.local,
       ativoinativo: this.ativoInativo,
