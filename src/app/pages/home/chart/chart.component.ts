@@ -278,6 +278,8 @@ export class ChartComponent implements OnInit{
     if (numberativ.length > 0) {
       patrimoniostotal = (numberativ[0] || 0) + (numberativ[1] || 0);
     }
+    console.log(patrimoniostotal);
+    
   
     // Cálculo dos patrimônios ativos e não ativos
     const patrimoniosativos = numberativ.length > 1 ? numberativ[1] || 0 : 0;
