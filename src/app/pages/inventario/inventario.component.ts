@@ -24,8 +24,8 @@ export class InventarioComponent implements OnInit {
  
   // Método para lidar com os dados filtrados e o texto de pesquisa
   onDataReady(filteredData: any, searchText: string) {
-    console.log(1232);
-    console.log(searchText);
+  
+
     
     // Verifica se há texto de pesquisa
     if (!searchText) {
@@ -61,12 +61,12 @@ export class InventarioComponent implements OnInit {
       }
       console.log(this.patrimonios )
     } else {
-     console.log(7689689);
+      
      
      this.patrimonios = this.patrimonios.filter((patrimonio: any) =>
-     patrimonio.patr_name.toLowerCase().includes(searchText)
+     patrimonio.patr_name.toLowerCase().includes(searchText) ||
+     patrimonio.patr_codigoserie.toLowerCase().includes(searchText)
      );
-     console.log(this.patrimonios);
     }
   }
   
