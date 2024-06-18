@@ -1,6 +1,6 @@
 
 import { HttpClient } from '@angular/common/http';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { BackendService } from 'src/app/service/backend.service';
 import { b64toBlob } from 'src/app/utils/utils';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -21,36 +21,52 @@ export class InventarioComponent implements OnInit {
 
   constructor(private http: HttpClient, private backendService: BackendService, private toastr: ToastrService) { }
 
-  onDataReady(filteredData: any) {
-    this.filtros = filteredData;
-    this.token = localStorage.getItem('token');
-  
-    if (this.token) {
-      this.backendService.Filter(this.filtros, this.token).subscribe(
-        response => {
-          this.patrimonios = response.patrimonios.map((patrimonio: any) => {
-            const dateString = patrimonio.patr_dt_compr;
-            const dateParts = dateString.split('-');
-            const year = parseInt(dateParts[0], 10);
-            const month = parseInt(dateParts[1], 10) - 1;
-            const day = parseInt(dateParts[2], 10);
-  
-            const dateObject = new Date(year, month, day);
-            const formattedDateISO = dateObject.toISOString().substring(0, 10); // Formato ISO para input date
-  
-            const imagem = patrimonio.imagem;
-  
-            return {
-              ...patrimonio,
-              date: formattedDateISO,
-              imageSrc: imagem
-            };
-          });
-        },
-        error => {
-          console.error('Erro ao verificar autenticação do usuário:', error);
-        }
-      );
+ 
+  // Método para lidar com os dados filtrados e o texto de pesquisa
+  onDataReady(filteredData: any, searchText: string) {
+    console.log(1232);
+    console.log(searchText);
+    
+    // Verifica se há texto de pesquisa
+    if (!searchText) {
+      this.filtros = filteredData;
+      this.token = localStorage.getItem('token');
+
+      if (this.token) {
+        this.backendService.Filter(this.filtros, this.token).subscribe(
+          response => {
+            this.patrimonios = response.patrimonios.map((patrimonio: any) => {
+              const dateString = patrimonio.patr_dt_compr;
+              const dateParts = dateString.split('-');
+              const year = parseInt(dateParts[0], 10);
+              const month = parseInt(dateParts[1], 10) - 1;
+              const day = parseInt(dateParts[2], 10);
+
+              const dateObject = new Date(year, month, day);
+              const formattedDateISO = dateObject.toISOString().substring(0, 10); // Formato ISO para input date
+
+              const imagem = patrimonio.imagem;
+
+              return {
+                ...patrimonio,
+                date: formattedDateISO,
+                imageSrc: imagem
+              };
+            });
+          },
+          error => {
+            console.error('Erro ao verificar autenticação do usuário:', error);
+          }
+        );
+      }
+      console.log(this.patrimonios )
+    } else {
+     console.log(7689689);
+     
+     this.patrimonios = this.patrimonios.filter((patrimonio: any) =>
+     patrimonio.patr_name.toLowerCase().includes(searchText)
+     );
+     console.log(this.patrimonios);
     }
   }
   

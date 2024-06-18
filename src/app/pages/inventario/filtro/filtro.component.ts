@@ -43,6 +43,7 @@ export class FiltroComponent implements OnInit{
   imageUrl: string | ArrayBuffer | null | undefined= null;
 
   errorMessage: string | null = null;
+  searchText: string = '';
 
   constructor(private backendService: BackendService,private toastr: ToastrService) {  }
 
@@ -59,8 +60,11 @@ export class FiltroComponent implements OnInit{
   @Output() dataReady = new EventEmitter<any>();
 
   
-
-
+  search(): void {
+    // Emitir o evento com os dados do filtro e o texto de pesquisa
+    this.dataReady.emit({ filters: this.selectedFilters, searchText: this.searchText.trim().toLowerCase() });
+  }
+  
   onFilterChange() {
     // Verifica se o filtro de nome é "Recente"
     const name = this.nameFilter === 'Recente' ? '' : this.nameFilter;
