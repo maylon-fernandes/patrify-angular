@@ -175,7 +175,7 @@ export class FiltroComponent implements OnInit{
                 catchError(error => {
                   console.error('Erro ao enviar imagem:', error);
                   
-                  this.toastr.error( 'Erro no cadastro do projeto', 'Erro');
+                  this.toastr.error( 'Erro no cadastro do patrimônio', 'Erro');
                   // Handle image upload errors (e.g., display error message)
                   return throwError(error);
                 })
