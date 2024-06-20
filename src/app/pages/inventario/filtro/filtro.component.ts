@@ -211,10 +211,8 @@ export class FiltroComponent implements OnInit{
       dt_compra: this.dt_compra,
       local: this.local,
       ativoinativo: this.ativoInativo,
-      descricao: this.descricao,
       depreciacao: this.depreciacao,
-      tipo: this.tipo,
-      // file: this.file
+      tipo: this.tipo
     };
   
    
