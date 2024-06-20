@@ -86,7 +86,7 @@
               <input *ngIf="patrimonio.editMode" type="text" [(ngModel)]="patrimonio.patr_valor"
                 class="absolute top-0 left-0 px-6 py-4 text-sm text-gray-500 bg-transparent border-none w-full h-full" />
             </td>
-            
+
             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 relative" id="data">
               <span *ngIf="!patrimonio.editMode" class="text-sm text-gray-900">
                 {{ patrimonio.date | date:'dd/MM/yyyy' }}
@@ -94,7 +94,7 @@
               <input *ngIf="patrimonio.editMode" type="date" [(ngModel)]="patrimonio.date"
                 class="absolute top-0 left-0 px-6 py-4 text-sm text-gray-500 bg-transparent border-none w-full h-full" />
             </td>
-            
+
 
             <td class="px-6 py-4 whitespace-nowrap relative" id="conservacao">
               <!-- Elemento de exibição normal -->
@@ -115,16 +115,18 @@
               </select>
             </td>
             <td class="flex justify-center items-center mt-9">
-              <button id="btnActions" class="rounded-full w-8 h-8 bg-transparent border-2 border-gray-400 items-center flex justify-center text-center">
+              <button id="btnActions"
+                class="rounded-full w-8 h-8 bg-transparent border-2 border-gray-400 items-center flex justify-center text-center">
                 <p class="text-gray-400 text-center font-bold text-2xl mb-3">...</p>
               </button>
               <div class="flex flex-col bg-gray-200 w-24 h-24 absolute justify-center items-center text-white">
-              <button class="text-blue-800 font-bold" *ngIf="!patrimonio.editMode" (click)="toggleEditMode(patrimonio)">Editar</button>
-              <button class="salvar" *ngIf="patrimonio.editMode" (click)="saveChanges(patrimonio)">Salvar</button>
-            <td>
-              <button class="text-red-600 font-bold" *ngIf="!patrimonio.editMode" (click)="deletarPatrimonio(patrimonio)">Deletar</button>
+                <button class="text-blue-800 font-bold" *ngIf="!patrimonio.editMode"
+                  (click)="toggleEditMode(patrimonio)">Editar</button>
+                <button class="salvar" *ngIf="patrimonio.editMode" (click)="saveChanges(patrimonio)">Salvar</button>
+                <button class="text-red-600 font-bold" *ngIf="!patrimonio.editMode"
+                  (click)="deletarPatrimonio(patrimonio)">Deletar</button>
+              </div>
             </td>
-          </div>
         </tbody>
       </table>
     </div>

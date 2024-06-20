@@ -85,7 +85,7 @@
     <div id="botao" class="bg-gradient-to-r from-amber-500 via-pink-600 to-purple-900 rounded-t-lg px-6 py-4">
         <p id="btn-p" class="font-bold text-white text-4xl">ADICIONAR PATRIMÔNIO</p>
     </div>
-    <form class="p-6 flex flex-col" (ngSubmit)="registerPatr()" #form="ngForm">
+    <form class="p-6 flex flex-col add-patr" (ngSubmit)="registerPatr()" #form="ngForm">
         <div class="mb-4">
             <h1>NOME:</h1>  
             <input type="text" placeholder="Nome do patrimônio" [(ngModel)]="name"   [ngModelOptions]="{standalone: true}" class="w-full border border-gray-300 rounded-md p-2">
@@ -103,7 +103,7 @@
             </div>
         </div>
         <!-- Novos inputs adicionados -->
-        <div class="flex flex-row mt-4 gap-10">
+        <div class="flex flex-row mt-4 gap-10" id="add-list">
             <span class="flex flex-col flex-1">
                 <span>STATUS</span>
                 <select [(ngModel)]="ativoInativo" [ngModelOptions]="{standalone: true}" class="bg-gray-200 text-gray-700 border-2 border-gray-700 font-medium w-full h-10 rounded-full p-2 focus:outline-none">
