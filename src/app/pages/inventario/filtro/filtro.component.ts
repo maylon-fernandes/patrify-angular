@@ -89,8 +89,9 @@ export class FiltroComponent implements OnInit{
       condicao: conservacao
     };
   
-    // Emite o evento com os dados do filtro
-    this.dataReady.emit(this.selectedFilters);
+    console.log(this.selectedFilters);
+    this.dataReady.emit({ filters: this.selectedFilters, searchText: this.searchText.trim().toLowerCase() });
+    
   }
   
   ngOnInit(): void {

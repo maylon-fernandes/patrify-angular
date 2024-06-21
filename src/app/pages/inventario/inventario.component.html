@@ -2,7 +2,7 @@
   <sidebar class="sidebar"></sidebar> <!-- SIDEBAR -->
   <div class="flex flex-col flex-1">
     <header-global></header-global> <!-- HEADER -->
-    <filtro (dataReady)="onDataReady($event.filteredData, $event.searchText)"></filtro> <!-- FILTRO DO INVENTÁRIO -->
+    <filtro (dataReady)="onDataReady($event.filters, $event.searchText)"></filtro> <!-- FILTRO DO INVENTÁRIO -->
     <div class="overflow-x-auto mt-4">
       <table class="table-auto w-[98%] mx-auto divide-y divide-gray-200">
         <thead class="bg-gray-50">
