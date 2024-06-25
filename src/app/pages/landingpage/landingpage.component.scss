@@ -491,7 +491,7 @@ body {
             .footerTop-centerLeft {
                 display: flex;
                 align-items: center;
-                justify-content: start;
+                justify-content: flex-start;
                 height: 100%;
                 width: 25%;
 
@@ -515,7 +515,7 @@ body {
                 display: flex;
                 height: 100%;
                 width: 25%;
-                justify-content: end;
+                justify-content: flex-end;
 
                 a {
                     font-size: 16px;
@@ -650,13 +650,28 @@ body {
         svg {
             width: 20px;
         }
+    }
+
     .footerTop-centerLeft {
+        display: none;
+        pointer-events: none;
         img {
-            width: 1px;
+            display: none;
+            pointer-events: none;
         }
     }
 
+    .footerTop-centerCenter {
+        text-wrap: nowrap;
+        font-size: 10px;
     }
+
+    .footerTop-centerRight {
+        a {
+            display: none;
+        }
+    }
+
 }
 
 

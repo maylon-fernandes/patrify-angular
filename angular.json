@@ -30,7 +30,8 @@
               "node_modules/ngx-toastr/toastr.css"
             ],
             "scripts": [
-              "node_modules/gsap/dist/gsap.min.js"
+              "node_modules/gsap/dist/gsap.min.js",
+              "node_modules/gsap/dist/ScrollTrigger.min.js"
             ]
           },
           "configurations": {
