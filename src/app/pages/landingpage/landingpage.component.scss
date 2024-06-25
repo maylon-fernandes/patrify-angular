@@ -1,11 +1,32 @@
 body {
     overflow-x: hidden;
+    scroll-behavior: smooth;
 
     h1,
     p,
     span {
         pointer-events: none;
     }
+}
+
+#btnToTop {
+    position: fixed;
+    pointer-events: none;
+    opacity: 0;
+    border: none;
+    transition: all 0.75s ease;
+    left: 92vw;
+    bottom: 0;
+}
+
+#btnToTop.active {
+    pointer-events: auto;
+    opacity: 1;
+    bottom: 32px;
+}
+
+#arrowTop {
+    width: 30px;
 }
 
 .wallpaper {
@@ -435,7 +456,8 @@ body {
 .contentFour {
     width: 100vw;
     height: 75vh;
-    background-color: #d6d6d6;
+    background-image: linear-gradient(to right top, #4c1084, #740686, #970086, #b60084, #e0116c, #fb4250, #ff7131, #ff9e00);
+
 }
 
 .Footer {
@@ -607,9 +629,33 @@ body {
 
             h1 {
                 font-size: 32px;
+            }
 
+            #contentThree-title {
+                font-size: 32px;
+                margin-top: 64px;
             }
         }
+    }
+
+    .patterns {
+        display: none;
+    }
+
+    #btnToTop {
+        left: 45vw;
+        width: 30px;
+        height: 30px;
+        
+        svg {
+            width: 20px;
+        }
+    .footerTop-centerLeft {
+        img {
+            width: 1px;
+        }
+    }
+
     }
 }
 
@@ -661,6 +707,10 @@ body {
                 font-size: 50px;
             }
         }
+    }
+
+    .patterns {
+        display: none;
     }
 }
 
