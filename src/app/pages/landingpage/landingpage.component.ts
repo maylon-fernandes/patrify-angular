@@ -12,7 +12,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 export class LandingpageComponent implements AfterViewInit {
 
-
+  
   
   constructor(private router: Router) { }
 
@@ -21,6 +21,28 @@ export class LandingpageComponent implements AfterViewInit {
   }
 
   ngAfterViewInit() {
+
+    
+
+    const toTop = document.getElementById('btnToTop') as HTMLButtonElement;
+
+  toTop.addEventListener('click', () => {
+    // Scroll suave até o topo da página
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  });
+
+    window.addEventListener('scroll', () => {
+      if(window.pageYOffset > 200) {
+        toTop?.classList.add("active");
+      } else {
+        toTop?.classList.remove("active");
+      }
+    })
+    
+
     gsap.registerPlugin(ScrollTrigger);
 
     gsap.from("#contentOne-title", {
@@ -206,8 +228,4 @@ export class LandingpageComponent implements AfterViewInit {
         });
     });
   }
-  
-
-  
-
-}
+  }
