@@ -1,11 +1,32 @@
 body {
     overflow-x: hidden;
+    scroll-behavior: smooth;
 
     h1,
     p,
     span {
         pointer-events: none;
     }
+}
+
+#btnToTop {
+    position: fixed;
+    pointer-events: none;
+    opacity: 0;
+    border: none;
+    transition: all 0.75s ease;
+    left: 92vw;
+    bottom: 0;
+}
+
+#btnToTop.active {
+    pointer-events: auto;
+    opacity: 1;
+    bottom: 32px;
+}
+
+#arrowTop {
+    width: 30px;
 }
 
 .wallpaper {
@@ -294,7 +315,7 @@ body {
 
         .column:nth-child(4) {
 
-            // background-image: url('http://dmmotionarts.com/wp-content/uploads/2024/01/pietro-de-grandi-T7K4aEPoGGk-unsplash.jpg');
+            background-image: url('../../../assets/imgs/grafico.png');
             background-size: cover;
             background-position: center center;
             border-radius: 0px 10px 10px 0px;
@@ -435,7 +456,8 @@ body {
 .contentFour {
     width: 100vw;
     height: 75vh;
-    background-color: #d6d6d6;
+    background-image: linear-gradient(to right top, #4c1084, #740686, #970086, #b60084, #e0116c, #fb4250, #ff7131, #ff9e00);
+
 }
 
 .Footer {
@@ -469,7 +491,7 @@ body {
             .footerTop-centerLeft {
                 display: flex;
                 align-items: center;
-                justify-content: start;
+                justify-content: flex-start;
                 height: 100%;
                 width: 25%;
 
@@ -493,7 +515,7 @@ body {
                 display: flex;
                 height: 100%;
                 width: 25%;
-                justify-content: end;
+                justify-content: flex-end;
 
                 a {
                     font-size: 16px;
@@ -607,10 +629,49 @@ body {
 
             h1 {
                 font-size: 32px;
+            }
 
+            #contentThree-title {
+                font-size: 32px;
+                margin-top: 64px;
             }
         }
     }
+
+    .patterns {
+        display: none;
+    }
+
+    #btnToTop {
+        left: 45vw;
+        width: 30px;
+        height: 30px;
+        
+        svg {
+            width: 20px;
+        }
+    }
+
+    .footerTop-centerLeft {
+        display: none;
+        pointer-events: none;
+        img {
+            display: none;
+            pointer-events: none;
+        }
+    }
+
+    .footerTop-centerCenter {
+        text-wrap: nowrap;
+        font-size: 10px;
+    }
+
+    .footerTop-centerRight {
+        a {
+            display: none;
+        }
+    }
+
 }
 
 
@@ -661,6 +722,10 @@ body {
                 font-size: 50px;
             }
         }
+    }
+
+    .patterns {
+        display: none;
     }
 }
 

@@ -89,8 +89,9 @@ export class FiltroComponent implements OnInit{
       condicao: conservacao
     };
   
-    // Emite o evento com os dados do filtro
-    this.dataReady.emit(this.selectedFilters);
+    console.log(this.selectedFilters);
+    this.dataReady.emit({ filters: this.selectedFilters, searchText: this.searchText.trim().toLowerCase() });
+    
   }
   
   ngOnInit(): void {
@@ -175,7 +176,7 @@ export class FiltroComponent implements OnInit{
                 catchError(error => {
                   console.error('Erro ao enviar imagem:', error);
                   
-                  this.toastr.error( 'Erro no cadastro do projeto', 'Erro');
+                  this.toastr.error( 'Erro no cadastro do patrimônio', 'Erro');
                   // Handle image upload errors (e.g., display error message)
                   return throwError(error);
                 })
@@ -211,10 +212,8 @@ export class FiltroComponent implements OnInit{
       dt_compra: this.dt_compra,
       local: this.local,
       ativoinativo: this.ativoInativo,
-      descricao: this.descricao,
       depreciacao: this.depreciacao,
-      tipo: this.tipo,
-      // file: this.file
+      tipo: this.tipo
     };
   
    

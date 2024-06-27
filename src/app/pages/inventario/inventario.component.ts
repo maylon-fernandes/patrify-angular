@@ -23,15 +23,15 @@ export class InventarioComponent implements OnInit {
 
  
   // Método para lidar com os dados filtrados e o texto de pesquisa
-  onDataReady(filteredData: any, searchText: string) {
+  onDataReady(filters: any, searchText: string) {
   
 
     
     // Verifica se há texto de pesquisa
-    if (!searchText) {
-      this.filtros = filteredData;
+    if (searchText == '') {
+      this.filtros = filters;
       this.token = localStorage.getItem('token');
-
+      console.log(filters)
       if (this.token) {
         this.backendService.Filter(this.filtros, this.token).subscribe(
           response => {
